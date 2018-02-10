@@ -23,6 +23,7 @@
 <style scoped lang="scss">
 @import "../common/style/global.scss";
 .header {
+	height: 50px;
 	background: $mainColor;
 	color: #fff;
 	display: flex;
