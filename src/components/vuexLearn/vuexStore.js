@@ -12,6 +12,14 @@ let store = new Vuex.Store({
             state.count += n;
         },
         reduce: state => state.count--
+    },
+    getters: {
+    	mulOperation (state) {
+    		return state.count*2
+    	},
+    	divideOperation (state) {
+    		return state.count/2
+    	}
     }
 })
 
