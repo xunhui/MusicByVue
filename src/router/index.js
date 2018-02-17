@@ -10,15 +10,10 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-        path: '/',
-        component: VuexLearn,
-        name: 'VuexLearn'
-    },
-    {
-    	path: '/myMusic',
+    	path: '/',
 	    component: MyMusic,
-	    name: 'myMusic'
-        // alias: '/myMusic'
+	    name: 'myMusic',
+        alias: '/myMusic'
     },
     {
     	path: '/recommend',

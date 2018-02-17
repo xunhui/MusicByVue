@@ -20,6 +20,20 @@ let store = new Vuex.Store({
     	divideOperation (state) {
     		return state.count/2
     	}
+    },
+    actions: {
+    	addAction: function (context) {
+    		context.commit("add",10);
+    	},
+    	reduceAction (context) {
+    		context.commit("reduce");
+    	},
+    	asynAction ({commit}) {
+    		setTimeout(function () {
+        		commit('add',10)
+      		}, 2000);
+      		commit('reduce')
+    	}
     }
 })
 
