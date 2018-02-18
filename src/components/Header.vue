@@ -11,7 +11,7 @@
 			<router-link tag="i" to="/community">
 				<i class="icon-community community"></i>
 			</router-link>
-		</div>
+		</div>  
 		<i class="search icon-search"></i>
 	</div>
 </template>
@@ -33,10 +33,17 @@
 		font-size: 26px;
 		padding: 10px;
 	}
+	
 	.top-tabBar {
+		.router-link-active {
+			i {
+				color: $link-active;
+			}
+		}	
 		.music,.wangyi,.community {
 			font-size: 26px;
 			padding: 0 5px;
+			color: #e58983;
 		}
 	}
 }

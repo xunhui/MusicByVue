@@ -55,14 +55,16 @@ export default {
     }
     .song-control {
       flex: 1;
+      text-align: right;
       .play-pause {
         color: #666;
-        font-size: 16px;
-        margin-right: 20px;
+        font-size: 25px;
+        margin-right: 10px;
       }
       .music-list {
         color: #666;
-        font-size: 16px;
+        font-size: 25px;
+        margin-right: 10px;
       }
     } 
   }

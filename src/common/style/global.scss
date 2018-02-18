@@ -2,11 +2,12 @@ $mainColor: #D23A31;//网易云红色调
 
 $baseColor: #f2f4f5;//页面基色调
 
-// router active状态下的颜色
-$link_active: #ccafaf;
-// $link_active: #67A8CC
+// router unactive状态下的颜色
+$link_active: #ffffff;
+
 //一像素颜色
 $border_1px : rgba(7, 17, 27, 0.1);
+
 // 点击active的效果
 $list_active: #d5d5d5;
 
