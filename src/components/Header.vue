@@ -1,6 +1,6 @@
 <template>
 	<div class="header">
-		<i class="icon-menu menu"></i>
+		<i class="icon-menu menu" @click="ShowMenu"></i>
 		<div class="top-tabBar">
 			<router-link tag="i" to="/myMusic">
 				<i class="icon-music music"></i>
@@ -17,7 +17,21 @@
 </template>
 
 <script>
-	
+import store from "../store"
+export default {
+	data () {
+		return {
+
+		}
+	},
+	methods: {
+		ShowMenu () {
+			console.log('1')
+			console.log(this.$store.state.sideBar.isShow)
+			this.$store.dispatch('showSideBar')
+		}
+	}
+}
 </script>
 
 <style scoped lang="scss">
