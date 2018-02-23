@@ -8,7 +8,7 @@
 
 <script>
 import Header from "@/components/Header"
-import sideBar from "@/components/sideBar"
+import sideBar from "@/components/SideBar/sideBar"
 export default {
   name: 'app',
   components: {

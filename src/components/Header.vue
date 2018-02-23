@@ -2,7 +2,7 @@
 	<div class="header">
 		<i class="icon-menu menu" @click="ShowMenu"></i>
 		<div class="top-tabBar">
-			<router-link tag="i" to="/myMusic">
+			<router-link tag="i" to="/">
 				<i class="icon-music music"></i>
 			</router-link>
 			<router-link tag="i" to="/recommend">
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import store from "../store"
 export default {
 	data () {
 		return {
@@ -26,8 +25,6 @@ export default {
 	},
 	methods: {
 		ShowMenu () {
-			console.log('1')
-			console.log(this.$store.state.sideBar.isShow)
 			this.$store.dispatch('showSideBar')
 		}
 	}
