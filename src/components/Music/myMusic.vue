@@ -5,10 +5,6 @@
 		<topList iconInfo="icon-diantai" titleText="我的电台" titleCount="3" hasBorder=true></topList>
 		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
 		<songList></songList>
-		<songList></songList>
-		<songList></songList>
-		<songList></songList>
-		<songList></songList>
   </div>
 </template>
 

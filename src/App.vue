@@ -1,7 +1,7 @@
-<template>
+<template> 
   <div id="app">
     <Header></Header>
-    <side-bar :userInfo="userInfo"></side-bar>
+    <side-bar></side-bar>
     <router-view/>
     <bottom-bar></bottom-bar>
   </div>
@@ -31,9 +31,14 @@ export default {
   created () {
     let LocalAPI = '../static/data.json'
     axios.get(LocalAPI).then((res) => {
-      //获取用户信息传递到sideBar组件中
-      this.userInfo = res.data.user
-      console.log(this.userInfo)
+      console.log(res.data)
+      let musicData = res.data.music;
+      let userData = res.data.user;
+      let findMusicData = res.data.findmusic;
+      //获取用户信息 传递到sideBar组件中
+      this.$store.dispatch('setUserInfo',userData);
+      //获取歌单列表信息 传递到myMusic中
+      this.$store.dispatch('setMusicSheetsInfo', musicData.sheets)
     }, (err) => {
       alert(err)
     })

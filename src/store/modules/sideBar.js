@@ -1,6 +1,7 @@
 const sideBar = {
     state: {
-        isShow: false//初始默认侧边栏不显示
+        isShow: false,//初始默认侧边栏不显示
+        userInfo: {}
     },
     mutations: {
         showBar (state) {
@@ -8,6 +9,9 @@ const sideBar = {
         },
         hideBar (state) {
             state.isShow = false;
+        },
+        setUserInfo (state, userInfo) {
+            state.userInfo = userInfo;
         }
     },
     actions: {
@@ -16,12 +20,17 @@ const sideBar = {
         },
         hideSideBar ({commit}) {
             commit('hideBar')
+        },
+        setUserInfo ({commit}, userInfo) {
+            commit('setUserInfo', userInfo)
         }
     },
     getters: {
         getShowState (state) {
             return state.isShow;
-        }
+        },
+        //获取用户信息
+        getUserInfo: state => state.userInfo
     }
 }
 

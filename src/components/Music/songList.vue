@@ -1,25 +1,26 @@
 <template>
-  <div class="songList">
-    <div class="summary-list-header" @click="toggleIconAction">
-      <i class="icon-down toggleicon" :class="[showList ? 'toggleiconDown' : 'toggleiconUp']"></i>
-      <div class="summary-list-info">
-        <span class="summary-list-name">我创建的歌单</span>
-        <span class="summary-list-count">(5)</span>
-      </div>
-      <i class="setting icon-setting"></i>
-    </div>
-    <div class="all-songList" v-if="showList">
-      <div class="each-songList">
-        <!-- <img :src="" alt="" class="songList-cover"> -->
-        <div style="width: 50px;height: 50px;margin: 5px;background: orange;"></div>
-        <div class="songList-detail" :class="{bottomBorder: hasBorder}">
-          <div class="songList-info">
-            <p class="songList-info-name">我喜欢的音乐</p>
-            <p class="songList-info-count">30首歌曲</p>
-          </div>
-          <i class="option icon-list-circle"></i>
+  <div class="songSheet">
+    <div class="each-songSheet" v-for="EachSheet in SheetsInfo" :key="EachSheet.id">
+      <div class="summary-list-header" @click="toggleIconAction">
+        <i class="icon-down toggleicon" :class="[showList ? 'toggleiconDown' : 'toggleiconUp']"></i>
+        <div class="summary-list-info">
+          <span class="summary-list-name">{{ EachSheet.name }}</span>
+          <span class="summary-list-count">({{ EachSheet.count }})</span>
         </div>
-        
+        <i class="setting icon-setting"></i>
+      </div>
+      <div class="all-songList" v-if="showList" v-for="SongList in EachSheet.detail">
+        <div class="each-songList">
+          <img :src="SongList.info[0].img_url" alt="" class="songList-cover">
+          <!-- <div style="width: 50px;height: 50px;margin: 5px;background: orange;"></div> -->
+          <div class="songList-detail" :class="{bottomBorder: hasBorder}">
+            <div class="songList-info">
+              <p class="songList-info-name">{{ SongList.name }}</p>
+              <p class="songList-info-count">{{ SongList.count }}首歌曲</p>
+            </div>
+            <i class="option icon-list-circle"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -37,6 +38,11 @@ export default {
   methods: {
     toggleIconAction() {
       this.showList = !this.showList;
+    }
+  },
+  computed: {
+    SheetsInfo () {
+      return this.$store.getters.getMusicSheetsInfo;
     }
   }
 };
@@ -82,6 +88,11 @@ export default {
   height: 60px;
   &:active {
     background: $list_active;
+  }
+  .songList-cover {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
   }
   .songList-detail {
     display: flex;

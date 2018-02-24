@@ -57,10 +57,12 @@ export default {
   data() {
     return {};
   },
-  props: ["userInfo"],
   computed: {
     isShow() {
       return this.$store.state.sideBar.isShow;
+    },
+    userInfo () {
+      return this.$store.getters.getUserInfo;
     }
   },
   methods: {
