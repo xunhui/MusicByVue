@@ -27,19 +27,19 @@
 
 <script>
 export default {
-  name: 'songList',
-  data () {
-  	return {
-  		hasBorder: true,
+  name: "songList",
+  data() {
+    return {
+      hasBorder: true,
       showList: true
-  	}
+    };
   },
   methods: {
-    toggleIconAction () {
+    toggleIconAction() {
       this.showList = !this.showList;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -47,18 +47,18 @@ export default {
 .summary-list-header {
   display: flex;
   align-items: center;
-  background: #E7E9E9;
+  background: #e7e9e9;
   color: #666;
   .toggleicon {
     font-size: 14px;
     padding: 8px 10px;
-    transition: all .5s;
+    transition: all 0.5s;
   }
   .toggleiconDown {
     transform: rotate(0);
   }
   .toggleiconUp {
-    transform: rotate(-90deg)
+    transform: rotate(-90deg);
   }
   .summary-list-info {
     flex: 6;
@@ -73,13 +73,16 @@ export default {
 }
 
 .bottomBorder {
-    border-bottom: 1px solid $border_1px;
+  border-bottom: 1px solid $border_1px;
 }
 
 .each-songList {
   display: flex;
   align-items: center;
   height: 60px;
+  &:active {
+    background: $list_active;
+  }
   .songList-detail {
     display: flex;
     align-items: center;
@@ -105,6 +108,5 @@ export default {
       margin-right: 20px;
     }
   }
-  
 }
 </style>

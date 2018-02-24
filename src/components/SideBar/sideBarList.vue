@@ -69,6 +69,7 @@ export default {
     color: #999;
     text-align: right;
     margin-right: 15px;
+    font-size: 12px;
   }
 }
 </style>

@@ -42,8 +42,13 @@ export default {
     flex: 1;
     height: 60px;
     .song-info {
-      flex: 4;
+      flex: 2;
       margin-left: 5px;
+      p {
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+      }
       .song-name {
         font-size: 16px;
       }

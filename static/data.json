@@ -1,9 +1,9 @@
 {
     "user": {
-        "name": "未曾遗忘的青春",
-        "avatar": "/static/images/userlogo.jpg",
-        "grade": "9",
-        "bg": "http://www.daiwei.org/index/images/img/indeximg.jpg"
+        "name": "我家猫爱吃鱼",
+        "avatar": "/static/images/avatar.jpg",
+        "level": "7",
+        "bg": "http://img2.imgtn.bdimg.com/it/u=3865315988,924614728&fm=27&gp=0.jpg"
     },
     "music": {
     	"all":[

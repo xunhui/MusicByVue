@@ -6,15 +6,15 @@
       <transition name="slide">
           <div class="sidebar-content" v-show="isShow">
             <div class="top-personalinfo">
-              <img src="../../../static/images/userlogo.jpg" class="avatar-img">
+              <img :src="userInfo.avatar" class="avatar-img">
               <div class="user-info">
                 <div class="user-left-info">
-                  <span class="user-name">xunhui</span>
-                  <span class="user-level">Lv.7</span>
+                  <span class="user-name">{{ userInfo.name }}</span>
+                  <span class="user-level">Lv.{{ userInfo.level }}</span>
                 </div>
                 <div class="user-right-info user-signin">
                   <i class=""></i>
-                  SignIn
+                  签到
                 </div>
               </div>
             </div>
@@ -22,9 +22,11 @@
               <sideBarList iconClass="icon-message" listText="我的消息"></sideBarList>
               <sideBarList iconClass="icon-vip" listText="我的会员"></sideBarList>
               <sideBarList iconClass="icon-market" listText="商城" ></sideBarList>
+              <div class="dividing-line"></div>
               <sideBarList iconClass="icon-friend" listText="我的好友" ></sideBarList>
               <sideBarList iconClass="icon-place" listText="附近的人"></sideBarList>
-              <sideBarList iconClass="icon-theme" listText="个性换肤"></sideBarList>
+              <div class="dividing-line"></div>
+              <sideBarList iconClass="icon-theme" listText="个性换肤" Attached="官方红"></sideBarList>
               <sideBarList iconClass="icon-set-time" listText="定时播放"></sideBarList>
               <sideBarList iconClass="icon-lock" listText="音乐闹钟"></sideBarList>
               <sideBarList iconClass="icon-car" listText="驾驶模式"></sideBarList>
@@ -55,6 +57,7 @@ export default {
   data() {
     return {};
   },
+  props: ["userInfo"],
   computed: {
     isShow() {
       return this.$store.state.sideBar.isShow;
@@ -72,6 +75,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// ::-webkit-scrollbar {
+//       display: none;
+//     }
+//隐藏滚动条的同时保留滚动效果
 @import "../../common/style/global.scss";
 .sidebar {
   .sidebar-mask {
@@ -107,7 +114,7 @@ export default {
     .top-personalinfo {
       position: relative;
       height: 180px;
-      background: url("../../../static/images/sidebarBg.jpg");
+      background: url("http://img2.imgtn.bdimg.com/it/u=3865315988,924614728&fm=27&gp=0.jpg");
       width: 100%;
       background-size: cover;
       display: flex;
@@ -132,7 +139,7 @@ export default {
         .user-left-info {
           flex: 3;
           .user-name {
-            font-size: 20px;
+            font-size: 18px;
             margin-right: 10px;
             vertical-align: middle;
             text-align: center;
@@ -155,6 +162,13 @@ export default {
           text-align: center;
         }
       }
+    }
+  }
+  .bottom-list {
+    .dividing-line {
+      width: 100%;
+      height: 10px;
+      background: #f2f4f5;
     }
   }
   .sideBar-bottomBar {

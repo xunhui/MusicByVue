@@ -1,11 +1,14 @@
 <template>
   <div class="myMusic">
-	<topList iconInfo="icon-music" titleText="我的音乐" titleCount="68" :isPlaying="true" :hasBorder="true"></topList>
-	<topList iconInfo="icon-zuijinplay" titleText="最近播放" titleCount="32" hasBorder=true></topList>
-	<topList iconInfo="icon-diantai" titleText="我的电台" titleCount="3" hasBorder=true></topList>
-	<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
-	<songList></songList>
-	<!-- <bottomBar></bottomBar> -->
+		<topList iconInfo="icon-music" titleText="我的音乐" titleCount="68" :isPlaying="true" :hasBorder="true"></topList>
+		<topList iconInfo="icon-zuijinplay" titleText="最近播放" titleCount="32" hasBorder=true></topList>
+		<topList iconInfo="icon-diantai" titleText="我的电台" titleCount="3" hasBorder=true></topList>
+		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
+		<songList></songList>
+		<songList></songList>
+		<songList></songList>
+		<songList></songList>
+		<songList></songList>
   </div>
 </template>
 
@@ -23,7 +26,6 @@ export default {
   components: {
   	"topList": topList,
   	"songList": songList
-  	// "bottomBar": bottomBar
   }
 }
 </script>
@@ -37,6 +39,10 @@ export default {
 	top: 50px;
 	left: 0;
 	right: 0;
-	bottom: 50px;
+	bottom: 0;
+	padding-bottom: 50px;
+	&::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

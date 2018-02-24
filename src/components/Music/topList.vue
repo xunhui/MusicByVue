@@ -51,6 +51,9 @@ export default {
 	display: flex;
 	align-items: center;
 	background: $baseColor;
+	&:active {
+        background: $list_active;
+    }
 	.icon {
 		font-size: 22px;
 		color: $mainColor;
