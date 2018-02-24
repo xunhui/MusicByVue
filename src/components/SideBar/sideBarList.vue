@@ -18,7 +18,7 @@ export default {
   props: {
     listHeight: {
       type: Number,
-      default: 40
+      default: 50
     },
     iconClass: {
       type: String
@@ -35,16 +35,24 @@ export default {
 </script>
 
 <style lang="scss">
+// :active选择器适用于所有元素，不仅限于链接a元素
+// :focus 选择器用于选取获得焦点的元素。仅接收键盘事件或其他用户输入的元素允许 :focus 选择器。
+// :active，元素被点击时变色，但颜色在点击后消失
+// :focus， 元素被点击后变色，且颜色在点击后不消失
+@import "../../common/style/global.scss";
 .sideBarList {
   display: flex;
   background: #fff;
   align-items: center;
+  &:active {
+    background: $list_active;
+  }
   .left-info {
     display: flex;
     align-items: center;
     flex: 5;
     .list-icon {
-      color: #999;
+      color: $icon_color;
       font-size: 24px;
       margin-left: 15px;
     }

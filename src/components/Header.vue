@@ -2,7 +2,7 @@
 	<div class="header">
 		<i class="icon-menu menu" @click="ShowMenu"></i>
 		<div class="top-tabBar">
-			<router-link tag="i" to="/">
+			<router-link tag="i" to="/myMusic">
 				<i class="icon-music music"></i>
 			</router-link>
 			<router-link tag="i" to="/recommend">
