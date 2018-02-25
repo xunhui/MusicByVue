@@ -1,22 +1,22 @@
 <template>
   <div class="songSheet">
-    <div class="each-songSheet" v-for="EachSheet in SheetsInfo" :key="EachSheet.id">
+    <div class="each-songSheet">
       <div class="summary-list-header" @click="toggleIconAction">
         <i class="icon-down toggleicon" :class="[showList ? 'toggleiconDown' : 'toggleiconUp']"></i>
         <div class="summary-list-info">
-          <span class="summary-list-name">{{ EachSheet.name }}</span>
-          <span class="summary-list-count">({{ EachSheet.count }})</span>
+          <span class="summary-list-name">{{ items.name }}</span>
+          <span class="summary-list-count">({{ items.count }})</span>
         </div>
         <i class="setting icon-setting"></i>
       </div>
-      <div class="all-songList" v-if="showList" v-for="SongList in EachSheet.detail">
+      <div class="all-songList" v-if="showList" v-for="item in items.detail">
         <div class="each-songList">
-          <img :src="SongList.info[0].img_url" alt="" class="songList-cover">
+          <img :src="item.info[0].img_url" alt="" class="songList-cover">
           <!-- <div style="width: 50px;height: 50px;margin: 5px;background: orange;"></div> -->
           <div class="songList-detail" :class="{bottomBorder: hasBorder}">
             <div class="songList-info">
-              <p class="songList-info-name">{{ SongList.name }}</p>
-              <p class="songList-info-count">{{ SongList.count }}首歌曲</p>
+              <p class="songList-info-name">{{ item.name }}</p>
+              <p class="songList-info-count">{{ item.count }}首歌曲</p>
             </div>
             <i class="option icon-list-circle"></i>
           </div>
@@ -40,11 +40,7 @@ export default {
       this.showList = !this.showList;
     }
   },
-  computed: {
-    SheetsInfo () {
-      return this.$store.getters.getMusicSheetsInfo;
-    }
-  }
+  props: ['items']
 };
 </script>
 

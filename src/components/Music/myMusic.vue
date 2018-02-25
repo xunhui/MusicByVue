@@ -4,7 +4,7 @@
 		<topList iconInfo="icon-zuijinplay" titleText="最近播放" titleCount="32" hasBorder=true></topList>
 		<topList iconInfo="icon-diantai" titleText="我的电台" titleCount="3" hasBorder=true></topList>
 		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
-		<songList></songList>
+		<songList :items="EachSheetsInfo" v-for="EachSheetsInfo in SheetsInfo" :key="EachSheetsInfo.id"></songList>
   </div>
 </template>
 
@@ -22,7 +22,12 @@ export default {
   components: {
   	"topList": topList,
   	"songList": songList
-  }
+	},
+	computed: {
+		SheetsInfo () {
+			return this.$store.getters.getMusicSheetsInfo;
+		}
+	}
 }
 </script>
 
