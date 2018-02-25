@@ -1,3 +1,4 @@
+<!-- 顶部tabbar组件 -->
 <template>
   <div class="topList">
 	<i :class="iconInfo" class="icon"></i>

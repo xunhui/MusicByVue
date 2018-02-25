@@ -40,9 +40,13 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	.menu,.search {
-		font-size: 26px;
-		padding: 10px;
+	.menu {
+		font-size: 24px;
+		padding: 0 10px;
+	}
+	.search {
+		font-size: 24px;
+		padding: 0 15px;
 	}
 	
 	.top-tabBar {
@@ -52,7 +56,7 @@ export default {
 			}
 		}	
 		.music,.wangyi,.community {
-			font-size: 26px;
+			font-size: 24px;
 			padding: 0 5px;
 			color: #e58983;
 		}

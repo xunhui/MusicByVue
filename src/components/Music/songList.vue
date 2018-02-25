@@ -1,3 +1,4 @@
+<!-- 歌单列表组件 -->
 <template>
   <div class="songSheet">
     <div class="each-songSheet">
@@ -9,7 +10,7 @@
         </div>
         <i class="setting icon-setting"></i>
       </div>
-      <div class="all-songList" v-if="showList" v-for="item in items.detail">
+      <div class="all-songList" v-if="showList" v-for="item in items.detail" @click="showSongListDetail(item)">
         <div class="each-songList">
           <img :src="item.info[0].img_url" alt="" class="songList-cover">
           <!-- <div style="width: 50px;height: 50px;margin: 5px;background: orange;"></div> -->
@@ -36,8 +37,11 @@ export default {
     };
   },
   methods: {
-    toggleIconAction() {
+    toggleIconAction () {
       this.showList = !this.showList;
+    },
+    showSongListDetail (listDetail) {
+
     }
   },
   props: ['items']

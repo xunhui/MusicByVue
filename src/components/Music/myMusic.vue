@@ -1,9 +1,11 @@
+<!-- 我的音乐主界面 -->
 <template>
   <div class="myMusic">
 		<topList iconInfo="icon-music" titleText="我的音乐" titleCount="68" :isPlaying="true" :hasBorder="true"></topList>
 		<topList iconInfo="icon-zuijinplay" titleText="最近播放" titleCount="32" hasBorder=true></topList>
 		<topList iconInfo="icon-diantai" titleText="我的电台" titleCount="3" hasBorder=true></topList>
 		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
+		<!-- 用v-for循环渲染组件可以让每个组件内部拥有自己的变量 -->
 		<songList :items="EachSheetsInfo" v-for="EachSheetsInfo in SheetsInfo" :key="EachSheetsInfo.id"></songList>
   </div>
 </template>
