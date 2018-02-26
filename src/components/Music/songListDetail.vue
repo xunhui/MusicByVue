@@ -14,9 +14,13 @@
             <img src="/static/logo.png" class="cover-img">
             <div class="right-info">
               <p class="list-title">{{ sheetsDetailInfo.name }}</p>
+              <!-- <p>{{ sheetsDetailInfo.user }}</p>
+              不明白的为什么user对象存在 在下面取值的时候会提示user为undifined？ 
+              用v-if解决该报错
+              -->
               <div class="user-info">
-                <img :src="sheetsDetailInfo.user.avatar" class="user-avatar">
-                <span class="user-name">{{ sheetsDetailInfo.user.name }}</span>
+                <img v-if="sheetsDetailInfo.user" :src="sheetsDetailInfo.user.avatar" class="user-avatar">
+                <span class="user-name" v-if="sheetsDetailInfo.user">{{ sheetsDetailInfo.user.name }}</span>
                 <i class="icon-right next"></i>
               </div>
             </div>
@@ -44,7 +48,7 @@
           <div class="play-songlist-header">
               <i class="icon-playdetail playall-icon"></i>
               <span class="playall-title">播放全部</span>
-              <span class="songlist-count">(共首)</span>
+              <span class="songlist-count">(共{{ sheetsDetailInfo.count }}首)</span>
               <div class="selectmore">
                 <i class="icon-menu selectmore-icon"></i>
                 <span class="selectmore-text">多选</span>
@@ -85,7 +89,7 @@ export default {
     }
   },
   created () {
-    console.log(this.$store.getters.getSheetsDetailInfo)
+    //已经在APP.vue中挂载到页面中了 所以点击后仅仅只是数据的改变
   }
 }
 </script>
@@ -104,10 +108,7 @@ export default {
   padding-bottom: 50px;
   z-index: 99;
   background: orange;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  
   .navigation-bar {
     position: fixed;
     top: 0;
@@ -137,6 +138,10 @@ export default {
     bottom: 0;
     padding-bottom: 50px;
     background: $baseColor;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     .top {
       background: red;
       color: #fff;
@@ -236,7 +241,7 @@ export default {
         .collect-amount-text {
           padding-right: 10px;
           margin-left: 50px;
-          text-align: right;
+          text-align: center;
           border-bottom: 1px solid $border_1px;
         }
       }

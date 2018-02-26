@@ -36,6 +36,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 999;
   .nowplaying-song {
     display: flex;
     align-items: center;
