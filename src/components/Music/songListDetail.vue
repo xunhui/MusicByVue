@@ -1,52 +1,63 @@
 <!-- 歌单详情页 -->
 <template>
-  <div class="SongListDetail" v-show="ifShowDetail">
-	 <div class="navigation-bar">
-     <i class="icon-back back" @click="backToPre"></i>
-     <span class="navigation-bar-text">歌单</span>
-     <i class="icon-search search"></i>
-     <i class="icon-list-circle more"></i>
-   </div>
-   <div class="content">
-     <div class="top">
-       <div class="cover">
-         <img src="/static/logo.png" class="cover-img">
-         <div class="right-info">
-           <p class="list-title">这是一个歌单hhh</p>
-           <div class="user-info">
-             <img src="/static/images/avatar.jpg" class="user-avatar">
-             <span class="user-name">我家猫爱吃鱼</span>
-             <i class="icon-right next"></i>
-           </div>
-         </div>
-       </div>
-       <div class="operation">
-         <div class="collect">
-           <i class="icon-collect"></i>
-           <p>收藏</p>
-         </div>
-         <div class="collect">
-           <i class="icon-msg"></i>
-           <p>评论</p>
-         </div>
-         <div class="collect">
-           <i class="icon-share"></i>
-           <p>分享</p>
-         </div>
-         <div class="collect">
-           <i class="icon-download"></i>
-           <p>下载</p>
-         </div>
-       </div>
-     </div>
-     <div class="bottom">
-       <div class="play-songlist-header">
-         
-       </div>
-       <play-songList></play-songList>
-     </div>
-   </div>
-  </div>
+  <transition class="slide">
+    <div class="SongListDetail" v-show="ifShowDetail">
+      <div class="navigation-bar">
+        <i class="icon-back back" @click="backToPre"></i>
+        <span class="navigation-bar-text">歌单</span>
+        <i class="icon-search search"></i>
+        <i class="icon-list-circle more"></i>
+      </div>
+      <div class="content">
+        <div class="top">
+          <div class="cover">
+            <img src="/static/logo.png" class="cover-img">
+            <div class="right-info">
+              <p class="list-title">{{ sheetsDetailInfo.name }}</p>
+              <div class="user-info">
+                <img :src="sheetsDetailInfo.user.avatar" class="user-avatar">
+                <span class="user-name">{{ sheetsDetailInfo.user.name }}</span>
+                <i class="icon-right next"></i>
+              </div>
+            </div>
+          </div>
+          <div class="operation">
+            <div class="collect">
+              <i class="icon-collect"></i>
+              <p>收藏</p>
+            </div>
+            <div class="collect">
+              <i class="icon-msg"></i>
+              <p>评论</p>
+            </div>
+            <div class="collect">
+              <i class="icon-share"></i>
+              <p>分享</p>
+            </div>
+            <div class="collect">
+              <i class="icon-download"></i>
+              <p>下载</p>
+            </div>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="play-songlist-header">
+              <i class="icon-playdetail playall-icon"></i>
+              <span class="playall-title">播放全部</span>
+              <span class="songlist-count">(共首)</span>
+              <div class="selectmore">
+                <i class="icon-menu selectmore-icon"></i>
+                <span class="selectmore-text">多选</span>
+              </div>
+          </div>
+          <play-songList v-for="(item, index) in sheetsDetailInfo.info" :list="item" :index="index" :key="item.id"></play-songList>
+          <div class="collect-amount">
+            <p class="collect-amount-text">共有...只有我收藏hhh~</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -54,21 +65,36 @@ import playSongList from "./playSongList"
 export default {
   data () {
   	return {
-  		ifShowDetail: true
+  		
   	}
   },
   components: {
   	playSongList
   },
+  computed: {
+    ifShowDetail () {
+      return this.$store.getters.getSheetsDetailState;
+    },
+    sheetsDetailInfo () {
+      return this.$store.getters.getSheetsDetailInfo;
+    }
+  },
   methods: {
     backToPre () {
-      this.ifShowDetail = !this.ifShowDetail;
+      this.$store.dispatch('hideSheetsDetail')//隐藏歌单详情页
     }
+  },
+  created () {
+    console.log(this.$store.getters.getSheetsDetailInfo)
   }
 }
 </script>
 
 <style lang="scss">
+@import "../../common/style/global.scss";
+.slide-enter {
+
+}
 .SongListDetail {
   position: fixed;
   top: 0;
@@ -78,6 +104,10 @@ export default {
   padding-bottom: 50px;
   z-index: 99;
   background: orange;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .navigation-bar {
     position: fixed;
     top: 0;
@@ -106,6 +136,7 @@ export default {
     right: 0;
     bottom: 0;
     padding-bottom: 50px;
+    background: $baseColor;
     .top {
       background: red;
       color: #fff;
@@ -154,6 +185,59 @@ export default {
           i {
             font-size: 20px;
           }
+        }
+      }
+    }
+    .bottom {
+     .play-songlist-header {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        background: $baseColor;
+        border-bottom: 1px solid $border_1px;
+        &:active {
+          background: $list_active;
+        }
+        .playall-icon {
+          width: 50px;
+          text-align: center;
+          font-size: 22px;
+        }
+        .playall-title {
+          font-size: 16px;
+          margin-left: 5px;
+        }
+        .songlist-count {
+          color: #aaa;
+          font-size: 15px;
+          flex: 1;
+        }
+        .selectmore {
+          display: flex;
+          align-items: center;
+          height: 50px;
+          z-index: 100;
+          .selectmore-icon {
+            font-size: 22px;
+            margin-right: 5px;
+          }
+          .selectmore-text {
+            font-size: 15px;
+            margin-right: 10px;
+          }
+        }
+      } 
+      .collect-amount {
+        height: 60px;
+        line-height: 60px;
+        &:active {
+          background: $list_active;
+        }
+        .collect-amount-text {
+          padding-right: 10px;
+          margin-left: 50px;
+          text-align: right;
+          border-bottom: 1px solid $border_1px;
         }
       }
     }

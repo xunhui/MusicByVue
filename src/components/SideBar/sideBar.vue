@@ -110,6 +110,7 @@ export default {
     padding-bottom: 50px;
     width: 300px;
     z-index: 100;
+    background: #fff;
     &::-webkit-scrollbar {
       display: none;
     }

@@ -41,7 +41,10 @@ export default {
       this.showList = !this.showList;
     },
     showSongListDetail (listDetail) {
-
+      //异步存入数据
+      this.$store.dispatch('setSheetsDetailInfo', listDetail);
+      //同步修改详情页的显示
+      this.$store.commit('showSheetsDetail');
     }
   },
   props: ['items']

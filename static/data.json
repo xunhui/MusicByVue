@@ -973,7 +973,7 @@
 						"name":"我喜欢的音乐",
 						"user":{
 							"name":"未曾遗忘的青春",
-							"avatar": "/static/images/userlogo.jpg"
+							"avatar": "/static/images/avatar.jpg"
 						},
 						"count":"30",
 						"type": "0",
@@ -1260,7 +1260,7 @@
 						"tips":["欧美","乡村","安静"],
 						"user":{
 							"name":"未曾遗忘的青春",
-							"avatar": "/static/images/userlogo.jpg"
+							"avatar": "/static/images/avatar.jpg"
 						},
 						"info":[
 							{
@@ -1408,7 +1408,7 @@
 						"tips":["霉霉","乡村","欧美"],
 						"user":{
 							"name":"未曾遗忘的青春",
-							"avatar": "/static/images/userlogo.jpg"
+							"avatar": "/static/images/avatar.jpg"
 						},
 						"info": [
 						    {
@@ -1556,7 +1556,7 @@
 						"tips":["电音"],
 						"user":{
 							"name":"未曾遗忘的青春",
-							"avatar": "/static/images/userlogo.jpg"
+							"avatar": "/static/images/avatar.jpg"
 						},
 						"info": [
 						    {
@@ -1740,7 +1740,7 @@
 						"tips":["华语","林俊杰","许嵩"],
 						"user":{
 							"name":"未曾遗忘的青春",
-							"avatar": "/static/images/userlogo.jpg"
+							"avatar": "/static/images/avatar.jpg"
 						},
 						"info": [
 				    		{
