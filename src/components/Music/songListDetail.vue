@@ -1,17 +1,18 @@
 <!-- 歌单详情页 -->
 <template>
   <transition name="slide">
-    <div class="SongListDetail" v-show="ifShowDetail" @scroll="scrollTransition">
+    <div class="SongListDetail" ref="wholepage" v-show="ifShowDetail" @scroll="scrollTransition">
       <div class="navigation-bar">
         <i class="icon-back back" @click="backToPre"></i>
         <span class="navigation-bar-text">歌单</span>
         <i class="icon-search search"></i>
         <i class="icon-list-circle more"></i>
+        <div class="navigation-bar-bg" ref="headerbar" v-if="coverImgURL" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center', opacity: 0}"></div>
       </div>
       <div class="content">
-        <div class="top">
+        <div class="top" ref="top" v-if="coverImgURL" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center'}">
           <div class="cover">
-            <img :src="sheetsDetailInfo.info[0].img_url" class="cover-img" v-if="sheetsDetailInfo.info">
+            <img :src="coverImgURL" class="cover-img" v-if="coverImgURL">
             <div class="right-info">
               <p class="list-title">{{ sheetsDetailInfo.name }}</p>
               <!-- <p>{{ sheetsDetailInfo.user }}</p>
@@ -69,7 +70,7 @@ import playSongList from "./playSongList"
 export default {
   data () {
   	return {
-  		
+  	
   	}
   },
   components: {
@@ -81,6 +82,9 @@ export default {
     },
     sheetsDetailInfo () {
       return this.$store.getters.getSheetsDetailInfo;
+    },
+    coverImgURL () {
+      return this.$store.getters.getSheetsDetailInfo.info[0].img_url;
     }
   },
   methods: {
@@ -88,11 +92,20 @@ export default {
       this.$store.dispatch('hideSheetsDetail')//隐藏歌单详情页
     },
     scrollTransition () {
-      console.log("scrolling");
+      console.log(this.$refs.wholepage.scrollTop, this.$refs.top.offsetHeight);
+      let opacity = this.$refs.wholepage.scrollTop / this.$refs.top.offsetHeight;
+      if (this.$refs.wholepage.scrollTop < this.$refs.top.offsetHeight) {
+        this.$refs.headerbar.style.opacity = opacity
+        this.$refs.headerbar.style.filter = `alpha(opacity:${opacity * 100})`
+      } else {
+        this.$refs.headerbar.style.opacity = 1
+        this.$refs.headerbar.style.filter = `alpha(opacity:${100})`
+      }
     }
   },
   created () {
     //已经在APP.vue中挂载到页面中了 所以点击后仅仅只是数据的改变
+    console.log(this.$store.getters.getSheetsDetailInfo)
   }
 }
 </script>
@@ -114,6 +127,8 @@ export default {
   padding-bottom: 50px;
   z-index: 99;
   background: #333;
+  overflow-y: auto;
+  
   .navigation-bar {
     position: fixed;
     top: 0;
@@ -134,21 +149,19 @@ export default {
       flex: 1;
       margin-left: 10px;
     }
+    .navigation-bar-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      z-index: -1;
+    }
   }
   .content {
-    position: fixed;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-bottom: 50px;
-    background: $baseColor;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      display: none;
-    }
     .top {
       color: #fff;
+      padding-top: 50px;
       .cover {
         display: flex;
         padding: 10px 15px;
