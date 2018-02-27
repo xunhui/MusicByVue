@@ -1,7 +1,7 @@
 <!-- 歌单详情页 -->
 <template>
-  <transition class="slide">
-    <div class="SongListDetail" v-show="ifShowDetail">
+  <transition name="slide">
+    <div class="SongListDetail" v-show="ifShowDetail" @scroll="scrollTransition">
       <div class="navigation-bar">
         <i class="icon-back back" @click="backToPre"></i>
         <span class="navigation-bar-text">歌单</span>
@@ -11,7 +11,7 @@
       <div class="content">
         <div class="top">
           <div class="cover">
-            <img src="/static/logo.png" class="cover-img">
+            <img :src="sheetsDetailInfo.info[0].img_url" class="cover-img" v-if="sheetsDetailInfo.info">
             <div class="right-info">
               <p class="list-title">{{ sheetsDetailInfo.name }}</p>
               <!-- <p>{{ sheetsDetailInfo.user }}</p>
@@ -86,6 +86,9 @@ export default {
   methods: {
     backToPre () {
       this.$store.dispatch('hideSheetsDetail')//隐藏歌单详情页
+    },
+    scrollTransition () {
+      console.log("scrolling");
     }
   },
   created () {
@@ -96,8 +99,11 @@ export default {
 
 <style lang="scss">
 @import "../../common/style/global.scss";
-.slide-enter {
-
+.slide-enter, .slide-leave-to {
+  transform: translateY(100%);
+}
+.slide-enter-active, .slide-leave-active {
+  transition: all .3s;
 }
 .SongListDetail {
   position: fixed;
@@ -107,8 +113,7 @@ export default {
   bottom: 0;
   padding-bottom: 50px;
   z-index: 99;
-  background: orange;
-  
+  background: #333;
   .navigation-bar {
     position: fixed;
     top: 0;
@@ -120,10 +125,10 @@ export default {
     color: #fff;
     i {
       font-size: 24px;
-      padding: 0 10px;
+      padding: 13px 10px;
     }
     .more {
-      padding: 0 15px;
+      padding: 13px 15px;
     }
     .navigation-bar-text {
       flex: 1;
@@ -143,7 +148,6 @@ export default {
       display: none;
     }
     .top {
-      background: red;
       color: #fff;
       .cover {
         display: flex;

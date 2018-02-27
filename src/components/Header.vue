@@ -42,11 +42,11 @@ export default {
 	justify-content: space-between;
 	.menu {
 		font-size: 24px;
-		padding: 0 10px;
+		padding: 13px 10px;
 	}
 	.search {
 		font-size: 24px;
-		padding: 0 15px;
+		padding: 13px 15px;
 	}
 	
 	.top-tabBar {
