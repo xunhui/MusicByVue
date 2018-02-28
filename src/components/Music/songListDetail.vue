@@ -7,12 +7,13 @@
         <span class="navigation-bar-text">歌单</span>
         <i class="icon-search search"></i>
         <i class="icon-list-circle more"></i>
-        <div class="navigation-bar-bg" ref="headerbar" v-if="coverImgURL" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center', opacity: 0}"></div>
+        <!-- 根据封面图片来设定顶部背景色，感谢大神的思路-将封面图片水平垂直居中并放大很多很多倍作为背景图片呈现出类似背景渐变色的效果 -->
+        <div class="navigation-bar-bg" ref="headerbar" v-if="sheetsDetailInfo.info" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center', opacity: 0}"></div>
       </div>
       <div class="content">
-        <div class="top" ref="top" v-if="coverImgURL" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center'}">
+        <div class="top" ref="top" v-if="sheetsDetailInfo.info" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center'}">
           <div class="cover">
-            <img :src="coverImgURL" class="cover-img" v-if="coverImgURL">
+            <img :src="coverImgURL" class="cover-img">
             <div class="right-info">
               <p class="list-title">{{ sheetsDetailInfo.name }}</p>
               <!-- <p>{{ sheetsDetailInfo.user }}</p>
@@ -66,57 +67,57 @@
 </template>
 
 <script>
-import playSongList from "./playSongList"
+import playSongList from "./playSongList";
 export default {
-  data () {
-  	return {
-  	
-  	}
+  data() {
+    return {};
   },
   components: {
-  	playSongList
+    playSongList
   },
   computed: {
-    ifShowDetail () {
+    ifShowDetail() {
       return this.$store.getters.getSheetsDetailState;
     },
-    sheetsDetailInfo () {
+    sheetsDetailInfo() {
       return this.$store.getters.getSheetsDetailInfo;
     },
-    coverImgURL () {
+    coverImgURL() {
       return this.$store.getters.getSheetsDetailInfo.info[0].img_url;
     }
   },
   methods: {
-    backToPre () {
-      this.$store.dispatch('hideSheetsDetail')//隐藏歌单详情页
+    backToPre() {
+      this.$store.dispatch("hideSheetsDetail"); //隐藏歌单详情页
     },
-    scrollTransition () {
-      console.log(this.$refs.wholepage.scrollTop, this.$refs.top.offsetHeight);
-      let opacity = this.$refs.wholepage.scrollTop / this.$refs.top.offsetHeight;
-      if (this.$refs.wholepage.scrollTop < this.$refs.top.offsetHeight) {
-        this.$refs.headerbar.style.opacity = opacity
-        this.$refs.headerbar.style.filter = `alpha(opacity:${opacity * 100})`
+    scrollTransition() {
+      let transparentDistance = this.$refs.top.offsetHeight - this.$refs.headerbar.offsetHeight; 
+      let opacity = this.$refs.wholepage.scrollTop / transparentDistance;
+      if (this.$refs.wholepage.scrollTop < transparentDistance) {
+        this.$refs.headerbar.style.opacity = opacity;
+        this.$refs.headerbar.style.filter = `alpha(opacity:${opacity * 100})`;
       } else {
-        this.$refs.headerbar.style.opacity = 1
-        this.$refs.headerbar.style.filter = `alpha(opacity:${100})`
+        this.$refs.headerbar.style.opacity = 1;
+        this.$refs.headerbar.style.filter = `alpha(opacity:${100})`;
       }
     }
   },
-  created () {
+  created() {
     //已经在APP.vue中挂载到页面中了 所以点击后仅仅只是数据的改变
-    console.log(this.$store.getters.getSheetsDetailInfo)
+    console.log(this.$store.getters.getSheetsDetailInfo);
   }
-}
+};
 </script>
 
 <style lang="scss">
 @import "../../common/style/global.scss";
-.slide-enter, .slide-leave-to {
+.slide-enter,
+.slide-leave-to {
   transform: translateY(100%);
 }
-.slide-enter-active, .slide-leave-active {
-  transition: all .3s;
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s;
 }
 .SongListDetail {
   position: fixed;
@@ -126,9 +127,11 @@ export default {
   bottom: 0;
   padding-bottom: 50px;
   z-index: 99;
-  background: #333;
+  background: $baseColor;
   overflow-y: auto;
-  
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .navigation-bar {
     position: fixed;
     top: 0;
@@ -211,7 +214,7 @@ export default {
       }
     }
     .bottom {
-     .play-songlist-header {
+      .play-songlist-header {
         display: flex;
         align-items: center;
         height: 50px;
@@ -248,7 +251,7 @@ export default {
             margin-right: 10px;
           }
         }
-      } 
+      }
       .collect-amount {
         height: 60px;
         line-height: 60px;

@@ -2,13 +2,14 @@
 <template>
   <div class="songSheet">
     <div class="each-songSheet">
-      <div class="summary-list-header" @click="toggleIconAction">
+      <!-- 事件修饰符stop 阻止事件继续传播 相当于阻止事件冒泡 -->
+      <div class="summary-list-header" @click.stop="toggleIconAction">
         <i class="icon-down toggleicon" :class="[showList ? 'toggleiconDown' : 'toggleiconUp']"></i>
         <div class="summary-list-info">
           <span class="summary-list-name">{{ items.name }}</span>
           <span class="summary-list-count">({{ items.count }})</span>
         </div>
-        <i class="setting icon-setting"></i>
+        <i class="setting icon-setting" @click.stop="songListSettingAction"></i>
       </div>
       <div class="all-songList" v-if="showList" v-for="item in items.detail" @click="showSongListDetail(item)">
         <div class="each-songList">
@@ -19,7 +20,7 @@
               <p class="songList-info-name">{{ item.name }}</p>
               <p class="songList-info-count">{{ item.count }}首歌曲</p>
             </div>
-            <i class="option icon-list-circle"></i>
+            <i class="option icon-list-circle" @click.stop="songListOperation"></i>
           </div>
         </div>
       </div>
@@ -45,6 +46,12 @@ export default {
       this.$store.dispatch('setSheetsDetailInfo', listDetail);
       //同步修改详情页的显示
       this.$store.commit('showSheetsDetail');
+    },
+    songListSettingAction () {
+      console.log('setting')
+    },
+    songListOperation () {
+      console.log('operate')
     }
   },
   props: ['items']
@@ -70,14 +77,13 @@ export default {
     transform: rotate(-90deg);
   }
   .summary-list-info {
-    flex: 6;
+    flex: 1;
     font-size: 12px;
   }
   .setting {
-    flex: 1;
     text-align: right;
     font-size: 18px;
-    margin-right: 20px;
+    padding: 0 20px;
   }
 }
 
@@ -103,7 +109,7 @@ export default {
     flex: 1;
     height: 60px;
     .songList-info {
-      flex: 6;
+      flex: 1;
       margin-left: 5px;
       .songList-info-name {
         font-size: 16px;
@@ -116,10 +122,9 @@ export default {
     }
     .option {
       color: #666;
-      flex: 1;
       text-align: right;
       font-size: 16px;
-      margin-right: 20px;
+      padding: 20px;
     }
   }
 }
