@@ -91,7 +91,7 @@ export default {
     bottom: 0;
     background: #000;
     opacity: 0.8;
-    z-index: 99;
+    z-index: 1000;
   }
   .fade-enter,
   .fade-leave-to {
@@ -109,7 +109,7 @@ export default {
     bottom: 0;
     padding-bottom: 50px;
     width: 300px;
-    z-index: 100;
+    z-index: 1001;
     background: #fff;
     &::-webkit-scrollbar {
       display: none;

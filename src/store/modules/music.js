@@ -5,7 +5,9 @@ const music = {
 		MusicSheetsInfo: [],//歌单信息
 		MusicFindInfo: [],//发现音乐信息
 		showSheetsDetail: false,//歌单详情页的显示隐藏
-		SheetsDetailListsInfo: []//歌单详情页的信息
+		SheetsDetailListsInfo: [],//歌单详情页的信息
+		ifShowOperation: false,//对歌单或歌曲进行操作组件的显示隐藏
+		operationType: []//操作组件的类型 （title iconclass等）
 	},
 	getters: {
 		//获取所有音乐信息
@@ -17,7 +19,9 @@ const music = {
 		//获取歌单详情页显示状态
 		getSheetsDetailState: state => state.showSheetsDetail,
 		//获取歌单详情音乐列表信息
-		getSheetsDetailInfo: state => state.SheetsDetailListsInfo
+		getSheetsDetailInfo: state => state.SheetsDetailListsInfo,
+		//获取操作组件显示状态
+		getShowOperationState: state => state.ifShowOperation
 	},
 	mutations: {
 		//从后台获取数据后存入state中
@@ -40,6 +44,14 @@ const music = {
 		},
 		hideSheetsDetail (state) {
 			state.showSheetsDetail = false;
+		},
+		//显示、隐藏操作组件
+		showOperation (state) {
+			state.ifShowOperation = true;
+			// state.operationType = operationType;
+		},
+		hideOperation (state) {
+			state.ifShowOperation = false;
 		}
 		
 	},
