@@ -2,7 +2,7 @@
     <div class="operationList">
         <!-- <i :class="operationInfo.iconClass" class="icon"></i>
         <p class="title">{{ operationInfo.title }}</p> -->
-        <i class="icon-more icon"></i>
+        <i class="icon-music icon"></i>
         <div class="title">下载</div>
     </div>  
 </template>

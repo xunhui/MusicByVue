@@ -105,7 +105,13 @@ export default {
   created() {
     //已经在APP.vue中挂载到页面中了 所以点击后仅仅只是数据的改变
     console.log(this.$store.getters.getSheetsDetailInfo);
+  },
+  watch: {
+    ifShowDetail: function (newShow, oldShow) {
+      this.$refs.wholepage.scrollTop = 0;
+    }
   }
+  // 使用watch侦听器来侦听该页面的show or notshow状态 来实现每当重新显示该组件时滚动条回到最初位置
 };
 </script>
 

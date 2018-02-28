@@ -52,6 +52,7 @@ export default {
     },
     songListOperation () {
       console.log('operate')
+      this.$store.commit('showOperation')
     }
   },
   props: ['items']

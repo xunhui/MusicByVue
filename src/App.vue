@@ -4,6 +4,7 @@
     <side-bar></side-bar>
     <router-view/>
     <songlist-detail></songlist-detail>
+    <!-- <operation></operation> -->
     <bottom-bar></bottom-bar>
   </div>
 </template>
@@ -13,6 +14,7 @@ import Header from "@/components/Header"
 import sideBar from "@/components/SideBar/sideBar"
 import bottomBar from "@/components/bottomBar"
 import songlistDetail from "@/components/Music/songListDetail"
+import operation from "./Components/Common/operation";
 import axios from 'axios'
 
 export default {
@@ -26,7 +28,8 @@ export default {
     Header,
     sideBar,
     bottomBar,
-    songlistDetail
+    songlistDetail,
+    operation
   },
   methods: {
 

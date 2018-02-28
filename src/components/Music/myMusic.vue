@@ -7,15 +7,12 @@
 		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
 		<!-- 用v-for循环渲染组件可以让每个组件内部拥有自己的变量  歌单列表 -->
 		<songList :items="EachSheetsInfo" v-for="EachSheetsInfo in SheetsInfo" :key="EachSheetsInfo.id"></songList>
-		<!-- 操作列表 -->
-
   </div>
 </template>
 
 <script>
 import topList from "./topList";
 import songList from "./songList";
-import operation from "../Common/operation";
 // import bottomBar from './bottomBar'
 export default {
   name: "myMusic",
@@ -26,8 +23,7 @@ export default {
   },
   components: {
     'topList': topList,
-	'songList': songList,
-	operation: operation
+	  'songList': songList
   },
   computed: {
     SheetsInfo() {

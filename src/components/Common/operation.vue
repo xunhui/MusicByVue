@@ -1,13 +1,15 @@
 <template>
     <div class="operation">
-        <transition name="fade">
+        <transition name="operationfade">
             <div class="mask" @click="hideOperation" v-show="ifShowOperation"></div>
         </transition>
-        <transition name="slide">
+        <transition name="operationslide">
             <div class="content" v-show="ifShowOperation">
                 <div class="header">
                     <p class="header-title">歌单:我喜欢的音乐</p>
                 </div>
+                <operationList></operationList>
+                <operationList></operationList>
                 <operationList></operationList>
             </div>
         </transition>
@@ -38,6 +40,19 @@ export default {
 
 <style lang="scss">
 @import "../../common/style/global.scss";
+.operationfade-enter, .operationfade-leave-to {
+    opacity: 0;
+  }
+.operationfade-enter-active, .operationfade-leave-active {
+    transition: opacity 0.3s;
+  }
+
+.operationslide-enter, .operationslide-leave-to {
+  transform: translateY(100%);
+}
+.operationslide-enter-active, .operationslide-leave-active {
+  transition: all 0.3s;
+}
 .mask {
   background: #000;
   opacity: 0.8;
@@ -46,7 +61,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 99;
+
 }
 .content {
   position: fixed;
@@ -54,7 +69,7 @@ export default {
   right: 0;
   bottom: 0;
   background: $baseColor;
-  z-index: 100;
+  
   .header {
       height: 50px;
       line-height: 50px;
