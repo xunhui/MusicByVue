@@ -14,7 +14,7 @@
 import Header from "@/components/Header"
 import sideBar from "@/components/SideBar/sideBar"
 import bottomBar from "@/components/bottomBar"
-import songlistDetail from "@/components/Music/songListDetail"
+import songlistDetail from "@/components/Music/SongList/songListDetail"
 import operation from "./Components/Common/operation";
 import axios from 'axios'
 

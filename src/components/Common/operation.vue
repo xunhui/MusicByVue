@@ -6,8 +6,12 @@
         <transition name="slide">
             <div class="content" v-show="ifShowOperation">
                 <div class="header">
-                    <p class="header-title" v-if="operationInfo.songListName">歌单:{{ operationInfo.songListName }}</p>
-                    <p class="header-title" v-if="operationInfo.title">{{ operationInfo.title }}</p>
+                  <!-- 歌曲 -->
+                  <p class="header-title" v-if="operationInfo.songName">歌曲:{{ operationInfo.songName }}</p>
+                  <!-- 歌单 -->
+                  <p class="header-title" v-if="operationInfo.songListName">歌单:{{ operationInfo.songListName }}</p>
+                  <!-- 其他 -->
+                  <p class="header-title" v-if="operationInfo.title">{{ operationInfo.title }}</p>
                 </div>
                 <operationList :iconInfo="operationInfo.iconInfo"></operationList>
             </div>
@@ -66,6 +70,11 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+    overflow-y: auto;
+    max-height: 250px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     background: $baseColor;
     z-index: 21;
     padding-bottom: 10px;   

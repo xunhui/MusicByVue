@@ -12,7 +12,7 @@
 
 <script>
 import topList from "./topList";
-import songList from "./songList";
+import songList from "./SongList/songList";
 // import bottomBar from './bottomBar'
 export default {
   name: "myMusic",

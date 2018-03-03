@@ -56,7 +56,9 @@
                 <span class="selectmore-text">多选</span>
               </div>
           </div>
-          <play-songList v-for="(item, index) in sheetsDetailInfo.info" :list="item" :index="index" :key="item.id"></play-songList>
+          <div class="all-playsonglist">
+            <play-songList v-for="(item, index) in sheetsDetailInfo.info" :list="item" :index="index" :key="item.id"></play-songList>
+          </div>
           <div class="collect-amount">
             <p class="collect-amount-text">共有...只有我收藏hhh~</p>
           </div>
@@ -94,6 +96,7 @@ export default {
       let transparentDistance =
         this.$refs.top.offsetHeight - this.$refs.headerbar.offsetHeight;
       let opacity = this.$refs.wholepage.scrollTop / transparentDistance;
+      console.log(this.$refs.wholepage.scrollTop, transparentDistance, opacity)
       if (this.$refs.wholepage.scrollTop < transparentDistance) {
         this.$refs.headerbar.style.opacity = opacity;
         this.$refs.headerbar.style.filter = `alpha(opacity:${opacity * 100})`;
@@ -117,7 +120,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../common/style/global.scss";
+@import "../../../common/style/global.scss";
 .SongListDetail {
   &.slide-enter,
   &.slide-leave-to {
@@ -147,6 +150,7 @@ export default {
     display: flex;
     align-items: center;
     color: #fff;
+    z-index: 1;
     i {
       font-size: 24px;
       padding: 13px 10px;

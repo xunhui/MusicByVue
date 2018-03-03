@@ -1,0 +1,125 @@
+<!-- 播放列表组件 -->
+<template>
+  <div class="playSongList">
+    <div class="song-detail" @click="clickToPlay">  
+      <i class="icon-volume-medium left" v-show="isPlaying"></i>
+      <p class="song-index left" v-show="!isPlaying">{{ index+1 }}</p>
+      <div class="song-info">
+        <p class="song-name">{{ list.name }}</p>
+        <p class="song-singer">{{ list.singer }}</p>  
+      </div>
+    </div>
+    <div class="border-1px"></div>
+    <i class="icon-list-circle more" @click="showMoreOperation(list.name)"></i>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+  	return {
+      isPlaying: false
+  	}
+  },
+  props: ['list', 'index'],
+  methods: {
+    clickToPlay () {
+      this.isPlaying = !this.isPlaying;
+    },
+    showMoreOperation (songName) {
+      this.$store.commit('showOperation', {
+        songName: songName,
+        iconInfo: [
+          {
+            iconText: '收藏到歌单',
+            iconClass: 'icon-add-project'
+          },
+          {
+            iconText: '下载',
+            iconClass: 'icon-download'
+          },
+          {
+            iconText: '评论' + '(2333)',
+            iconClass: 'icon-msg'
+          },
+          {
+            iconText: '分享',
+            iconClass: 'icon-share'
+          },
+          {
+            iconText: '歌手:' + this.list.singer,
+            iconClass: 'icon-collect'
+          },
+          {
+            iconText: '删除',
+            iconClass: 'icon-delete'
+          }
+        ]
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+//为了实现点击more_icon时只有此处高亮...尝试了很蛋疼绝对定位的的写法把icon从整个列表文档流中分出去..个人觉得会//写的会还是用JS来实现靠谱
+@import "../../../common/style/global.scss";
+.playSongList {
+  height: 60px;
+  background: $baseColor;
+  position: relative;
+  .song-detail {
+    display: flex;
+    align-items: center;
+    &:active {
+      background: $list_active;
+    }
+    .left {
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+    }
+    .icon-volume-medium {
+      color: $mainColor; 
+    }
+    .song-index {
+      font-size: 17px;
+    }
+    .song-info {
+      margin-left: 5px;
+      flex: 1;
+      .song-name {
+        font-size: 16px;
+      }
+      .song-singer {
+        margin-top: 5px;
+        color: #666;
+        font-size: 12px;
+      }
+    }
+
+  }
+  .border-1px {
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 65px;
+    background: $border_1px;
+  }
+  .more {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #aaa; 
+    &:active {
+      background: $list_active;
+    }
+  }
+}
+</style>

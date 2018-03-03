@@ -11,17 +11,16 @@
         </div>
         <i class="setting icon-setting" @click.stop="songListSettingAction(items.name)"></i>
       </div>
-      <div class="all-songList" v-if="showList" v-for="item in items.detail" @click="showSongListDetail(item)" :key="item.id">
-        <div class="each-songList">
-          <img :src="item.info[0].img_url" alt="" class="songList-cover">
-          <!-- <div style="width: 50px;height: 50px;margin: 5px;background: orange;"></div> -->
+      <div class="all-songList" v-if="showList">
+        <div class="each-songList" v-for="item in items.detail" :key="item.id" @click="showSongListDetail(item)">
           <div class="songList-detail" :class="{bottomBorder: hasBorder}">
+            <img :src="item.info[0].img_url" alt="" class="songList-cover">
             <div class="songList-info">
               <p class="songList-info-name">{{ item.name }}</p>
               <p class="songList-info-count">{{ item.count }}首歌曲</p>
             </div>
-            <i class="option icon-list-circle" @click.stop="songListOperation(item.name)"></i>
           </div>
+          <i class="option icon-list-circle" @click.stop="songListOperation(item.name)"></i>
         </div>
       </div>
     </div>
@@ -83,7 +82,6 @@ export default {
           },
         ]
       })
-      console.log(this.$store.getters.getOperationInfo)
     }
   },
   props: ['items']
@@ -91,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../common/style/global.scss";
+@import "../../../common/style/global.scss";
 .summary-list-header {
   display: flex;
   align-items: center;
@@ -124,22 +122,21 @@ export default {
 }
 
 .each-songList {
-  display: flex;
-  align-items: center;
   height: 60px;
-  &:active {
-    background: $list_active;
-  }
-  .songList-cover {
-    width: 50px;
-    height: 50px;
-    margin: 5px;
-  }
+  position: relative;
   .songList-detail {
     display: flex;
     align-items: center;
     flex: 1;
     height: 60px;
+    &:active {
+      background: $list_active;
+    }
+    .songList-cover {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+    } 
     .songList-info {
       flex: 1;
       margin-left: 5px;
@@ -152,11 +149,19 @@ export default {
         font-size: 12px;
       }
     }
-    .option {
-      color: #666;
-      text-align: right;
-      font-size: 16px;
-      padding: 20px;
+  }
+  .option {
+    color: #666;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 16px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    &:active {
+      background: $list_active;
     }
   }
 }
