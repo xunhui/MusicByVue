@@ -40,6 +40,7 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	z-index: 10;
 	.menu {
 		font-size: 24px;
 		padding: 13px 10px;

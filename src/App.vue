@@ -4,7 +4,8 @@
     <side-bar></side-bar>
     <router-view/>
     <songlist-detail></songlist-detail>
-    <!-- <operation></operation> -->
+    <!-- 此处发现一个坑 由于各个组件分模块导入 各个组件的css样式以行内样式一一导入 如果类名相同会导致样式冲突 所以在每个css样式书写之前都先写上总的根父类名 -->
+    <operation></operation>
     <bottom-bar></bottom-bar>
   </div>
 </template>

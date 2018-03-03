@@ -91,7 +91,8 @@ export default {
       this.$store.dispatch("hideSheetsDetail"); //隐藏歌单详情页
     },
     scrollTransition() {
-      let transparentDistance = this.$refs.top.offsetHeight - this.$refs.headerbar.offsetHeight; 
+      let transparentDistance =
+        this.$refs.top.offsetHeight - this.$refs.headerbar.offsetHeight;
       let opacity = this.$refs.wholepage.scrollTop / transparentDistance;
       if (this.$refs.wholepage.scrollTop < transparentDistance) {
         this.$refs.headerbar.style.opacity = opacity;
@@ -107,7 +108,7 @@ export default {
     console.log(this.$store.getters.getSheetsDetailInfo);
   },
   watch: {
-    ifShowDetail: function (newShow, oldShow) {
+    ifShowDetail: function(newShow, oldShow) {
       this.$refs.wholepage.scrollTop = 0;
     }
   }
@@ -117,22 +118,21 @@ export default {
 
 <style lang="scss">
 @import "../../common/style/global.scss";
-.slide-enter,
-.slide-leave-to {
-  transform: translateY(100%);
-}
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.3s;
-}
 .SongListDetail {
+  &.slide-enter,
+  &.slide-leave-to {
+    transform: translateY(100%);
+  }
+  &.slide-enter-active,
+  &.slide-leave-active {
+    transition: all 0.3s;
+  }
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  padding-bottom: 50px;
-  z-index: 99;
+  bottom: 50px;
+  z-index: 15;
   background: $baseColor;
   overflow-y: auto;
   &::-webkit-scrollbar {

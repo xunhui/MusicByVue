@@ -1,7 +1,6 @@
 <!-- 播放列表组件 -->
 <template>
   <div class="recommend">
-
   </div>
 </template>
 
@@ -10,6 +9,9 @@ export default {
   data () {
     return {
     }
+  },
+  computed: {
+    
   }
 }
 </script>

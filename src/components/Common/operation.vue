@@ -1,16 +1,15 @@
 <template>
     <div class="operation">
-        <transition name="operationfade">
+        <transition name="fade">
             <div class="mask" @click="hideOperation" v-show="ifShowOperation"></div>
         </transition>
-        <transition name="operationslide">
+        <transition name="slide">
             <div class="content" v-show="ifShowOperation">
                 <div class="header">
-                    <p class="header-title">歌单:我喜欢的音乐</p>
+                    <p class="header-title" v-if="operationInfo.songListName">歌单:{{ operationInfo.songListName }}</p>
+                    <p class="header-title" v-if="operationInfo.title">{{ operationInfo.title }}</p>
                 </div>
-                <operationList></operationList>
-                <operationList></operationList>
-                <operationList></operationList>
+                <operationList :iconInfo="operationInfo.iconInfo"></operationList>
             </div>
         </transition>
     </div>
@@ -27,57 +26,66 @@ export default {
   },
   computed: {
     ifShowOperation () {
-        return this.$store.getters.getShowOperationState;
+      return this.$store.getters.getShowOperationState;
+    },
+    operationInfo () {
+      return this.$store.getters.getOperationInfo;
     }
   },
   methods: {
-      hideOperation () {
-          this.$store.commit('hideOperation')
-      }
+    hideOperation() {
+      this.$store.commit("hideOperation");
+    }
   }
 };
 </script>
 
 <style lang="scss">
 @import "../../common/style/global.scss";
-.operationfade-enter, .operationfade-leave-to {
-    opacity: 0;
+.operation {
+  .mask {
+    background: #000;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    &.fade-enter,
+    &.fade-leave-to {
+      opacity: 0;
+    }
+    &.fade-enter-active,
+    &.fade-leave-active {
+      transition: opacity 0.3s;
+    }
   }
-.operationfade-enter-active, .operationfade-leave-active {
-    transition: opacity 0.3s;
-  }
-
-.operationslide-enter, .operationslide-leave-to {
-  transform: translateY(100%);
-}
-.operationslide-enter-active, .operationslide-leave-active {
-  transition: all 0.3s;
-}
-.mask {
-  background: #000;
-  opacity: 0.8;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-}
-.content {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: $baseColor;
-  
-  .header {
-      height: 50px;
-      line-height: 50px;
+  .content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $baseColor;
+    z-index: 21;
+    padding-bottom: 10px;   
+    &.slide-enter,
+    &.slide-leave-to {
+      transform: translateY(100%);
+    }
+    &.slide-enter-active,
+    &.slide-leave-active {
+      transition: all 0.3s;
+    }
+    .header {
+      padding-top: 20px;
+      padding-bottom: 5px;
       .header-title {
-          color: #aaa;
-          font-size: 12px;
-          margin-left: 8px;
+        color: #666;
+        font-size: 14px;
+        margin-left: 10px;
       }
+    }
   }
 }
 </style>

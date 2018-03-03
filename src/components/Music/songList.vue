@@ -9,9 +9,9 @@
           <span class="summary-list-name">{{ items.name }}</span>
           <span class="summary-list-count">({{ items.count }})</span>
         </div>
-        <i class="setting icon-setting" @click.stop="songListSettingAction"></i>
+        <i class="setting icon-setting" @click.stop="songListSettingAction(items.name)"></i>
       </div>
-      <div class="all-songList" v-if="showList" v-for="item in items.detail" @click="showSongListDetail(item)">
+      <div class="all-songList" v-if="showList" v-for="item in items.detail" @click="showSongListDetail(item)" :key="item.id">
         <div class="each-songList">
           <img :src="item.info[0].img_url" alt="" class="songList-cover">
           <!-- <div style="width: 50px;height: 50px;margin: 5px;background: orange;"></div> -->
@@ -20,7 +20,7 @@
               <p class="songList-info-name">{{ item.name }}</p>
               <p class="songList-info-count">{{ item.count }}首歌曲</p>
             </div>
-            <i class="option icon-list-circle" @click.stop="songListOperation"></i>
+            <i class="option icon-list-circle" @click.stop="songListOperation(item.name)"></i>
           </div>
         </div>
       </div>
@@ -47,12 +47,43 @@ export default {
       //同步修改详情页的显示
       this.$store.commit('showSheetsDetail');
     },
-    songListSettingAction () {
+    songListSettingAction (title) {
       console.log('setting')
+      this.$store.commit('showOperation', {
+        title: title,
+        iconInfo: [
+          {
+            iconText: '删除',
+            iconClass: 'icon-delete'
+          },
+          {
+            iconText: '编辑',
+            iconClass: 'icon-edit'
+          }
+        ]
+      })
     },
-    songListOperation () {
+    songListOperation (name) {
       console.log('operate')
-      this.$store.commit('showOperation')
+      //显示操作子页面 同时将歌单名,icontext,iconClass等数据传入
+      this.$store.commit('showOperation', {
+        songListName: name,
+        iconInfo: [
+          {
+            iconText: '下载',
+            iconClass: 'icon-download'
+          },
+          {
+            iconText: '分享',
+            iconClass: 'icon-share'
+          },
+          {
+            iconText: '删除',
+            iconClass: 'icon-delete'
+          },
+        ]
+      })
+      console.log(this.$store.getters.getOperationInfo)
     }
   },
   props: ['items']
