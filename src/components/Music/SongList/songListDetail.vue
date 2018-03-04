@@ -96,7 +96,6 @@ export default {
       let transparentDistance =
         this.$refs.top.offsetHeight - this.$refs.headerbar.offsetHeight;
       let opacity = this.$refs.wholepage.scrollTop / transparentDistance;
-      console.log(this.$refs.wholepage.scrollTop, transparentDistance, opacity)
       if (this.$refs.wholepage.scrollTop < transparentDistance) {
         this.$refs.headerbar.style.opacity = opacity;
         this.$refs.headerbar.style.filter = `alpha(opacity:${opacity * 100})`;

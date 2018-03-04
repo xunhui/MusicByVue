@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../common/style/global.scss";
 .operationList {
   display: flex;
