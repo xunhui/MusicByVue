@@ -1,9 +1,9 @@
-<!-- 播放列表组件 -->
+<!-- 歌单内的播放列表组件 -->
 <template>
   <div class="playSongList">
-    <div class="song-detail" @click="clickToPlay">  
-      <i class="icon-volume-medium left" v-show="isPlaying"></i>
-      <p class="song-index left" v-show="!isPlaying">{{ index+1 }}</p>
+    <div class="song-detail" @click="clickToPlay(index)">  
+      <i class="icon-volume-medium left" v-show="currentIndex == index"></i>
+      <p class="song-index left" v-show="currentIndex != index">{{ index+1 }}</p>
       <div class="song-info">
         <p class="song-name">{{ list.name }}</p>
         <p class="song-singer">{{ list.singer }}</p>  
@@ -18,13 +18,21 @@
 export default {
   data () {
   	return {
-      isPlaying: false
+      //不能给每个组件绑定一个当前index数据
   	}
   },
   props: ['list', 'index'],
+  computed: {
+    currentIndex () {
+      return this.$store.getters.getPlayingSongIndex;
+    }
+  },
   methods: {
-    clickToPlay () {
-      this.isPlaying = !this.isPlaying;
+    clickToPlay (index) {
+      let obj = {};
+      obj.index = index;
+      obj.songInfo = this.list;
+      this.$store.commit('playMusic', obj);
     },
     showMoreOperation (songName) {
       this.$store.commit('showOperation', {
@@ -62,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss">
-//为了实现点击more_icon时只有此处高亮...尝试了很蛋疼绝对定位的的写法把icon从整个列表文档流中分出去..个人觉得会//写的会还是用JS来实现靠谱
+//为了实现点击more_icon时只有此处高亮...尝试了很蛋疼绝对定位的的写法把icon从整个列表文档流中分出去..个人觉得写的话还是用JS来实现靠谱
 @import "../../../common/style/global.scss";
 .playSongList {
   height: 60px;
