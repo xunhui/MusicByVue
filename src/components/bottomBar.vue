@@ -38,12 +38,7 @@ export default {
   },
   methods: {
     playOrPause () {
-      console.log('cc')
-      if (this.playingSongState) {
-        this.$store.commit('pauseMusic')
-      } else {
-        this.$store.commit('playMusic')
-      }
+      this.$store.commit('playOrPause');
     },
     showNowPlayingList () {
 

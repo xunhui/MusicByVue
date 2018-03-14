@@ -1,9 +1,7 @@
 <!-- 播放列表组件 -->
 <template>
   <div class="audio">
-	<audio ref="audio" :src="playingMusicInfo.url" @pause="musicPause" @play="musicPlay" @load=""></audio>
-	<p @click="play">Play</p>
-	<p @click="pause">Pause</p>
+	<audio ref="audio" @pause="musicPause" @play="musicPlay"></audio>
   </div>
 </template>
 
@@ -24,12 +22,6 @@ export default {
     }
   },
   methods: {
-  	pause () {
-  		this.$refs.audio.pause()
-  	},
-  	play () {
-  		this.$refs.audio.play()
-  	},
   	musicPause () {
   		console.log('pause')
   	},
@@ -41,6 +33,7 @@ export default {
     console.log(this.$refs.audio.src)
     //mounted阶段才可以获取到dom节点
     this.$store.commit("setAudioItSelf", this.$refs.audio);
+    this.$refs.audio.src = this.playingMusicInfo.url;
   }
 }
 </script>

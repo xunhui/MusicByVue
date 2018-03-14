@@ -30,24 +30,29 @@ const audio = {
 		setAudioItSelf (state, audio) {
 			state.audioItSelf = audio;
 		},
-		playMusic (state, obj) {
+		playIndexMusic (state, obj) {
       		//改变当前播放音乐状态
 			state.playingState = true;
 			//设置当前播放音乐的索引位置 播放图标显示
 			state.playingSongIndex = obj.index;
 			//修改当前播放音乐信息
-			// !!! 此处有一个重大bug 不知道什么原因 
-			//修改当前播放音乐信息后audio组件中的src不会跟着改变  其中的数据是上一轮的音乐url
+			// !!! 此处有一个重大bug 如果修改当前播放音乐信息和播放音乐放在一块写，就会报play() method is interrupted by a new load()  
+			//个人猜测是修改了audio组件中的数据源会导致load()方法
 			state.playingSongInfo = obj.songInfo;
-			//手动改变播放的url
-			state.audioItSelf.src = obj.songInfo.url;
-			//开始播放音乐
-			console.log(state.audioItSelf.src)
+			state.audioItSelf.setAttribute('src', obj.songInfo.url)
 			state.audioItSelf.load();
-      		state.audioItSelf.play();
+			state.audioItSelf.play()
+			console.log(state.audioItSelf)
 		},
-		pauseMusic (state) {
-			state.playingState = false;
+		//点击按钮 toggle播放or暂停
+		playOrPause (state) {
+			if (state.playingState == false) {
+				state.playingState = true;
+				state.audioItSelf.play();
+			} else {
+				state.playingState = false;
+				state.audioItSelf.pause();
+			}
 		},
 		setPlayingSongInfo (state, songInfo) {
 			

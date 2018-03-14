@@ -32,7 +32,7 @@ export default {
       let obj = {};
       obj.index = index;
       obj.songInfo = this.list;
-      this.$store.commit('playMusic', obj);
+      this.$store.commit('playIndexMusic', obj);
     },
     showMoreOperation (songName) {
       this.$store.commit('showOperation', {
