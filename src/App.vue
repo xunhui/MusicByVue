@@ -49,6 +49,15 @@ export default {
     }, (err) => {
       alert(err)
     })
+
+    //默认登录自己的账号获取用户信息存入vuex
+    axios.post('/login/cellphone', {
+      phone: '15927290486',
+      password: 'cc19961213'
+    }).then(res => {
+      console.log(res)
+    }).catch(error => console.log(error));
+
   }
 }
 </script>

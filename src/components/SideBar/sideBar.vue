@@ -52,7 +52,9 @@
 </template>
 
 <script>
+import axios from 'axios'
 import sideBarList from "./sideBarList";
+
 export default {
   data() {
     return {};
@@ -72,6 +74,9 @@ export default {
   },
   components: {
     sideBarList
+  },
+  created () {
+    
   }
 };
 </script>
