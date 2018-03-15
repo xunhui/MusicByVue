@@ -18,6 +18,7 @@
 
 <script>
 import myAudio from "./Music/PlayingMusic/audio"
+import axios from "axios"
 export default {
   name: 'bottomBar',
   data () {
@@ -45,7 +46,7 @@ export default {
     }
   },
   created () {
-    
+    axios.get('/user/followeds?uid=32953014').then(e => console.log(e))
   }
 }
 </script>

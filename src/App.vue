@@ -51,10 +51,8 @@ export default {
     })
 
     //默认登录自己的账号获取用户信息存入vuex
-    axios.post('/login/cellphone', {
-      phone: '15927290486',
-      password: 'cc19961213'
-    }).then(res => {
+    axios.defaults.baseURL = 'http://127.0.0.1:3000'
+    axios.get('login/cellphone?phone=15927290486&password=cc19961213').then(res => {
       console.log(res)
     }).catch(error => console.log(error));
 
