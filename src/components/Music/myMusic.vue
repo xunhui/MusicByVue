@@ -6,6 +6,7 @@
 		<topList iconInfo="icon-diantai" titleText="我的电台" titleCount="3" hasBorder=true></topList>
 		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
 		<!-- 用v-for循环渲染组件可以让每个组件内部拥有自己的变量  歌单列表 -->
+    
 		<songList :items="EachSheetsInfo" v-for="EachSheetsInfo in SheetsInfo" :key="EachSheetsInfo.id"></songList>
   </div>
 </template>
@@ -29,6 +30,15 @@ export default {
     SheetsInfo() {
       return this.$store.getters.getMusicSheetsInfo;
     }
+  },
+  created () {
+    //获取歌单列表
+    //提供的这个接口貌似不会自行对歌单进行分类..查看接口信息猜测是根据specialtype来分类 
+    //手动写对象很蛋疼..索性直接全部显示..这接口好坑
+    this.$http.get('/user/playlist?uid=246442459').then( res => {
+      this.$store.dispatch('setMusicSheetsInfo', res.data.playlist);
+      console.log(this.$store.getters.getMusicSheetsInfo)  
+    })
   }
 };
 </script>

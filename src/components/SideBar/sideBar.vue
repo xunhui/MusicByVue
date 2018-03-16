@@ -4,18 +4,18 @@
           <div class="sidebar-mask" @click="hideSideBar" v-show="isShow"></div>
       </transition>
       <transition name="slide">
-          <div class="sidebar-content" v-show="isShow">
-            <div class="top-personalinfo">
-              <img :src="userInfo.avatar" class="avatar-img">
+          <div class="sidebar-content" v-show="isShow" >
+            <div class="top-personalinfo" :style="{backgroundImage: `url(${userInfo.backgroundUrl})`}">
+              <img :src="userInfo.avatarUrl" class="avatar-img">
               <div class="user-info">
                 <div class="user-left-info">
-                  <span class="user-name">{{ userInfo.name }}</span>
-                  <span class="user-level">Lv.{{ userInfo.level }}</span>
+                  <span class="user-name">{{ userInfo.nickname }}</span>
+                  <span class="user-level">Lv.{{ userInfo.vipType }}</span>
                 </div>
-                <div class="user-right-info user-signin">
+                <!-- <div class="user-right-info user-signin">
                   <i class=""></i>
                   签到
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="bottom-list">
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import sideBarList from "./sideBarList";
 
 export default {
@@ -61,7 +60,7 @@ export default {
   },
   computed: {
     isShow() {
-      return this.$store.state.sideBar.isShow;
+      return this.$store.getters.getSideBarShowState;
     },
     userInfo () {
       return this.$store.getters.getUserInfo;
@@ -121,8 +120,7 @@ export default {
     }
     .top-personalinfo {
       position: relative;
-      height: 180px;
-      background: url("http://img2.imgtn.bdimg.com/it/u=3865315988,924614728&fm=27&gp=0.jpg");
+      height: 170px;
       width: 100%;
       background-size: cover;
       display: flex;

@@ -3,24 +3,24 @@
   <div class="songSheet">
     <div class="each-songSheet">
       <!-- 事件修饰符stop 阻止事件继续传播 相当于阻止事件冒泡 -->
-      <div class="summary-list-header" @click.stop="toggleIconAction">
+      <!-- <div class="summary-list-header" @click.stop="toggleIconAction">
         <i class="icon-down toggleicon" :class="[showList ? 'toggleiconDown' : 'toggleiconUp']"></i>
         <div class="summary-list-info">
           <span class="summary-list-name">{{ items.name }}</span>
           <span class="summary-list-count">({{ items.count }})</span>
         </div>
         <i class="setting icon-setting" @click.stop="songListSettingAction(items.name)"></i>
-      </div>
+      </div> -->
       <div class="all-songList" v-if="showList">
-        <div class="each-songList" v-for="item in items.detail" :key="item.id" @click="showSongListDetail(item)">
+        <div class="each-songList" @click="showSongListDetail(items.id)">
           <div class="songList-detail" :class="{bottomBorder: hasBorder}">
-            <img :src="item.info[0].img_url" alt="" class="songList-cover">
+            <img :src="items.coverImgUrl" alt="" class="songList-cover">
             <div class="songList-info">
-              <p class="songList-info-name">{{ item.name }}</p>
-              <p class="songList-info-count">{{ item.count }}首歌曲</p>
+              <p class="songList-info-name">{{ items.name }}</p>
+              <p class="songList-info-count">{{ items.trackCount }}首歌曲</p>
             </div>
           </div>
-          <i class="option icon-list-circle" @click.stop="songListOperation(item.name)"></i>
+          <i class="option icon-list-circle" @click.stop="songListOperation(items.name)"></i>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
       this.showList = !this.showList;
     },
     showSongListDetail (listDetail) {
-      //异步存入数据
+      //存入歌单的id
       this.$store.dispatch('setSheetsDetailInfo', listDetail);
       //同步修改详情页的显示
       this.$store.commit('showSheetsDetail');
@@ -84,7 +84,10 @@ export default {
       })
     }
   },
-  props: ['items']
+  props: ['items'],
+  created () {
+    console.log(this.items)
+  }
 };
 </script>
 

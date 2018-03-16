@@ -42,20 +42,19 @@ export default {
       let musicData = res.data.music;
       let userData = res.data.user;
       let findMusicData = res.data.findmusic;
-      //获取用户信息 传递到sideBar组件中
-      this.$store.dispatch('setUserInfo',userData);
       //获取歌单列表信息 传递到myMusic中
-      this.$store.dispatch('setMusicSheetsInfo', musicData.sheets)
     }, (err) => {
       alert(err)
     })
 
-    //默认登录自己的账号获取用户信息存入vuex
+    //暂时没有做登录界面所以目前默认登录自己的账号获取用户信息存入vuex 
+    //emmm...为了不暴露我的账号密码 我直接从后台返回数据取到我的userId
+    //可以自行根据接口文档修改成自己的账号密码或userId
     axios.defaults.baseURL = 'http://127.0.0.1:3000'
-    axios.get('login/cellphone?phone=15927290486&password=cc19961213').then(res => {
-      console.log(res)
+    this.$http.get('/user/detail?uid=246442459').then(res => {
+      this.$store.dispatch('setUserInfo', res.data.profile);
     }).catch(error => console.log(error));
-
+    
   }
 }
 </script>

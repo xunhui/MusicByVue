@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import SideBar from './modules/sideBar.js'
+import User from './modules/user.js'
 import Music from './modules/music.js'
 import Audio from './modules/audio.js'
 
@@ -20,7 +20,7 @@ const store = new Vuex.Store({
 
     },
     modules: {
-        sideBar: SideBar,
+        user: User,
         music: Music,
         audio: Audio
     }
