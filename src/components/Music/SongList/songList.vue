@@ -12,7 +12,7 @@
         <i class="setting icon-setting" @click.stop="songListSettingAction(items.name)"></i>
       </div> -->
       <div class="all-songList" v-if="showList">
-        <div class="each-songList" @click="showSongListDetail(items.id)">
+        <div class="each-songList" @click="showSongListDetail(items.id, items.trackCount)">
           <div class="songList-detail" :class="{bottomBorder: hasBorder}">
             <img :src="items.coverImgUrl" alt="" class="songList-cover">
             <div class="songList-info">
@@ -40,9 +40,18 @@ export default {
     toggleIconAction () {
       this.showList = !this.showList;
     },
-    showSongListDetail (listDetail) {
-      //存入歌单的id
-      this.$store.dispatch('setSheetsDetailInfo', listDetail);
+    showSongListDetail (id, count) {
+      //获取当前点击歌单的详细信息
+      let detailURL = "/playlist/detail?id=" + id.toString();
+      let listDetail = '';
+      console.log(detailURL)
+      this.$http.get(detailURL).then( res => {
+        console.log(res);
+        //歌单详情里没有歌单数量这个字段，手动添加
+        listDetail = res.data.result;
+        listDetail.trackCount = count;
+        this.$store.dispatch('setSheetsDetailInfo', listDetail);
+      }).catch( error => console.log(error))
       //同步修改详情页的显示
       this.$store.commit('showSheetsDetail');
     },
@@ -86,7 +95,7 @@ export default {
   },
   props: ['items'],
   created () {
-    console.log(this.items)
+    
   }
 };
 </script>

@@ -36,25 +36,12 @@ export default {
 
   },
   created () {
-    let LocalAPI = '../static/data.json'
-    axios.get(LocalAPI).then((res) => {
-      console.log(res.data)
-      let musicData = res.data.music;
-      let userData = res.data.user;
-      let findMusicData = res.data.findmusic;
-      //获取歌单列表信息 传递到myMusic中
-    }, (err) => {
-      alert(err)
-    })
-
-    //暂时没有做登录界面所以目前默认登录自己的账号获取用户信息存入vuex 
-    //emmm...为了不暴露我的账号密码 我直接从后台返回数据取到我的userId
-    //可以自行根据接口文档修改成自己的账号密码或userId
+    //默认登录自己的账号获取用户信息存入vuex
     axios.defaults.baseURL = 'http://127.0.0.1:3000'
-    this.$http.get('/user/detail?uid=246442459').then(res => {
-      this.$store.dispatch('setUserInfo', res.data.profile);
+    axios.get('/user/detail?uid=246442459').then(res => {
+      console.log(res)
     }).catch(error => console.log(error));
-    
+
   }
 }
 </script>

@@ -1,12 +1,12 @@
 <!-- 歌单内的播放列表组件 -->
 <template>
-  <div class="playSongList">
+  <div class="eachSong">
     <div class="song-detail" @click="clickToPlay(index)">  
       <i class="icon-volume-medium left" v-show="currentIndex == index"></i>
       <p class="song-index left" v-show="currentIndex != index">{{ index+1 }}</p>
       <div class="song-info">
         <p class="song-name">{{ list.name }}</p>
-        <p class="song-singer">{{ list.singer }}</p>  
+        <p class="song-artists">{{ getArtistsAndAlbum(list) }}</p>  
       </div>
     </div>
     <div class="border-1px"></div>
@@ -64,6 +64,18 @@ export default {
           }
         ]
       })
+    },
+    getArtistsAndAlbum (obj) {
+      let allArtists = '', album = '';
+      let artLen = obj.artists.length;
+      for (let i = 0;i < artLen;i++) {
+        allArtists += obj.artists[i].name;
+        if (i+1 < artLen) 
+          allArtists += '/'
+
+      }
+      album = obj.album.name;
+      return allArtists + ' - ' + album;
     }
   }
 }
@@ -72,7 +84,7 @@ export default {
 <style lang="scss">
 //为了实现点击more_icon时只有此处高亮...尝试了很蛋疼绝对定位的的写法把icon从整个列表文档流中分出去..个人觉得写的话还是用JS来实现靠谱
 @import "../../../common/style/global.scss";
-.playSongList {
+.eachSong {
   height: 60px;
   background: $baseColor;
   position: relative;
@@ -100,7 +112,7 @@ export default {
       .song-name {
         font-size: 16px;
       }
-      .song-singer {
+      .song-artists {
         margin-top: 5px;
         color: #666;
         font-size: 12px;

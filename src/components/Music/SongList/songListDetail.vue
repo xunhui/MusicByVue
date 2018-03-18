@@ -8,10 +8,10 @@
         <i class="icon-search search"></i>
         <i class="icon-list-circle more"></i>
         <!-- 根据封面图片来设定顶部背景色，感谢大神的思路-将封面图片水平垂直居中并放大很多很多倍作为背景图片呈现出类似背景渐变色的效果 -->
-        <div class="navigation-bar-bg" ref="headerbar" v-if="sheetsDetailInfo.info" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center', opacity: 0}"></div>
+        <div class="navigation-bar-bg" ref="headerbar" v-if="sheetsDetailInfo" :style="{backgroundImage: `url(${coverImgURL})`, backgroundSize: '5000%', backgroundPosition: 'center', opacity: 0}"></div>
       </div>
       <div class="content">
-        <div class="top" ref="top" v-if="sheetsDetailInfo.info" :style="{backgroundImage: 'url(' + coverImgURL + ')', backgroundSize: '6000%', backgroundPosition: 'center'}">
+        <div class="top" ref="top" v-if="sheetsDetailInfo" :style="{backgroundImage: `url(${coverImgURL})`, backgroundSize: '5000%', backgroundPosition: 'center'}">
           <div class="cover">
             <img :src="coverImgURL" class="cover-img">
             <div class="right-info">
@@ -20,9 +20,9 @@
               不明白的为什么user对象存在 在下面取值的时候会提示user为undifined？ 
               用v-if解决该报错
               -->
-              <div class="user-info">
-                <img v-if="sheetsDetailInfo.user" :src="sheetsDetailInfo.user.avatar" class="user-avatar">
-                <span class="user-name" v-if="sheetsDetailInfo.user">{{ sheetsDetailInfo.user.name }}</span>
+              <div class="user-info" v-if="listCreator">
+                <img :src="listCreator.avatarUrl" class="user-avatar">
+                <span class="user-name">{{ listCreator.nickname}}</span>
                 <i class="icon-right next"></i>
               </div>
             </div>
@@ -50,14 +50,14 @@
           <div class="play-songlist-header">
               <i class="icon-playdetail playall-icon"></i>
               <span class="playall-title">播放全部</span>
-              <span class="songlist-count">(共{{ sheetsDetailInfo.count }}首)</span>
+              <span class="songlist-count">(共{{ tracksListLength }}首)</span>
               <div class="selectmore">
                 <i class="icon-menu selectmore-icon"></i>
                 <span class="selectmore-text">多选</span>
               </div>
           </div>
           <div class="all-playsonglist">
-            <play-songList v-for="(item, index) in sheetsDetailInfo.info" :list="item" :index="index" :key="item.id"></play-songList>
+            <each-song v-for="(item, index) in tracksList" :list="item" :index="index" :key="item.id"></each-song>
           </div>
           <div class="collect-amount">
             <p class="collect-amount-text">共有...只有我收藏hhh~</p>
@@ -69,13 +69,13 @@
 </template>
 
 <script>
-import playSongList from "./playSongList";
+import eachSong from "./eachSong";
 export default {
   data() {
     return {};
   },
   components: {
-    playSongList
+    eachSong
   },
   computed: {
     ifShowDetail() {
@@ -85,7 +85,16 @@ export default {
       return this.$store.getters.getSheetsDetailInfo;
     },
     coverImgURL() {
-      return this.$store.getters.getSheetsDetailInfo.info[0].img_url;
+      return this.$store.getters.getSheetsDetailInfo.coverImgUrl;
+    },
+    listCreator () {
+      return this.$store.getters.getSheetsDetailInfo.creator;
+    },
+    tracksList () {
+      return this.$store.getters.getSheetsDetailInfo.tracks;
+    },
+    tracksListLength () {
+      return this.$store.getters.getSheetsDetailInfo.trackCount;
     }
   },
   methods: {
@@ -109,12 +118,12 @@ export default {
     //已经在APP.vue中挂载到页面中了 所以点击后仅仅只是数据的改变
     console.log(this.$store.getters.getSheetsDetailInfo);
   },
+  // 使用watch侦听器来侦听该页面的show or notshow状态 来实现每当重新显示该组件时滚动条回到最初位置
   watch: {
     ifShowDetail: function(newShow, oldShow) {
       this.$refs.wholepage.scrollTop = 0;
     }
   }
-  // 使用watch侦听器来侦听该页面的show or notshow状态 来实现每当重新显示该组件时滚动条回到最初位置
 };
 </script>
 

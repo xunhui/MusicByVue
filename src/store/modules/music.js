@@ -5,9 +5,8 @@ const music = {
 		MusicSheetsInfo: [],//歌单信息
 		MusicFindInfo: [],//发现音乐信息
 		showSheetsDetail: false,//歌单详情页的显示隐藏
-		SheetsDetailListsInfo: [],//歌单详情页的信息
-		ifShowOperation: false,//对歌单或歌曲进行操作组件的显示隐藏
-		operationInfo: {}//操作组件的信息 （title iconclass等）
+		SheetsDetailInfo: {},//歌单详情页的信息
+		songArtistsAndAlbum: ''//每一首歌的歌手及专辑
 	},
 	getters: {
 		//获取所有音乐信息
@@ -19,14 +18,11 @@ const music = {
 		//获取歌单详情页显示状态
 		getSheetsDetailState: state => state.showSheetsDetail,
 		//获取歌单详情音乐列表信息
-		getSheetsDetailInfo: state => state.SheetsDetailListsInfo,
-		//获取操作组件显示状态
-		getShowOperationState: state => state.ifShowOperation,
-		//获取操作组件的类型（name icontext iconclass等）
-		getOperationInfo: state => state.operationInfo
+		getSheetsDetailInfo: state => state.SheetsDetailInfo,
+		//获取歌曲歌手、歌名、专辑
+		getSongArtistsAndAlbum: state => state.songArtistsAndAlbum
 	},
 	mutations: {
-		//从后台获取数据后存入state中
 		setMusicAllInfo (state, all) {
 			state.MusicAllInfo = all
 		},
@@ -38,7 +34,7 @@ const music = {
 		},
 		//获取详情页歌单列表信息
 		setSheetsDetailInfo (state, songlists) {
-			state.SheetsDetailListsInfo = songlists;
+			state.SheetsDetailInfo = songlists;
 		},
 		//显示、隐藏歌单详情页
 		showSheetsDetail (state) {
@@ -47,15 +43,19 @@ const music = {
 		hideSheetsDetail (state) {
 			state.showSheetsDetail = false;
 		},
-		//显示、隐藏操作组件
-		showOperation (state, obj) {
-			state.ifShowOperation = true;
-			state.operationInfo = obj;
-		},
-		hideOperation (state) {
-			state.ifShowOperation = false;
-		}
-		
+		//设置歌曲信息
+		setSongArtistsAndAlbum (state, obj) {
+		    let allArtists = '', album = '';
+		    let artLen = obj.artists.length;
+		    for (let i = 0;i < artLen;i++) {
+		      allArtists += obj.artists[i].name;
+		      if (i+1 < artLen)
+		        allArtists += '/'
+		    }
+		    album = obj.album.name;
+		    console.log(artLen)
+		    state.songArtistsAndAlbum = allArtists + ' - ' + album;
+    	}
 	},
 	actions: {
 		//异步进行
@@ -77,7 +77,10 @@ const music = {
 		hideSheetsDetail ({commit}) {
 			commit("hideSheetsDetail")
 		}
-	}
+		// setEachSongInfo ({commit}, songInfo) {
+		// 	commit('setEachSongInfo', songInfo)
+		// }
+ 	}
 }
 
 export default music;

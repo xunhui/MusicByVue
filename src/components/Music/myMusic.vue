@@ -37,7 +37,7 @@ export default {
     //手动写对象很蛋疼..索性直接全部显示..这接口好坑
     this.$http.get('/user/playlist?uid=246442459').then( res => {
       this.$store.dispatch('setMusicSheetsInfo', res.data.playlist);
-      console.log(this.$store.getters.getMusicSheetsInfo)  
+      console.log(res)
     })
   }
 };
