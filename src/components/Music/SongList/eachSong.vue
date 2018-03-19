@@ -30,8 +30,10 @@ export default {
   methods: {
     clickToPlay (index) {
       let obj = {};
+      this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
       obj.index = index;
       obj.songInfo = this.list;
+      console.log(obj)
       this.$store.commit('playIndexMusic', obj);
     },
     showMoreOperation (songName) {

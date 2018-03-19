@@ -1,11 +1,11 @@
 <template>
   <div class="bottomBar">
   <my-audio></my-audio>
-    <img :src="playingSongInfo.img_url" class="songList-cover">
+    <img :src="playingSongInfo.album.blurPicUrl" class="songList-cover">
     <div class="nowplaying-song">
       <div class="song-info">
         <p class="song-name">{{ playingSongInfo.name }}</p>
-        <p class="song-singer">{{ playingSongInfo.singer }}</p>
+        <p class="song-singer">{{ playingSongInfo.artistsAlbum }}</p>
       </div>
       <div class="circle-diy" @click.stop="playOrPause">
         <i class="play-pause" :class="[playingSongState ? 'icon-pause' : 'icon-play']"></i>

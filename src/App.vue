@@ -39,7 +39,7 @@ export default {
     //默认登录自己的账号获取用户信息存入vuex
     axios.defaults.baseURL = 'http://127.0.0.1:3000'
     axios.get('/user/detail?uid=246442459').then(res => {
-      console.log(res)
+      this.$store.commit('setUserInfo', res.data.profile);
     }).catch(error => console.log(error));
 
   }

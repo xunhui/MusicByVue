@@ -5,8 +5,9 @@
       <div class="navigation-bar">
         <i class="icon-back back" @click="backToPre"></i>
         <span class="navigation-bar-text">歌单</span>
-        <i class="icon-search search"></i>
-        <i class="icon-list-circle more"></i>
+        <!-- 歌单内搜索功能待实现 -->
+        <!-- <i class="icon-search search"></i> -->
+        <!-- <i class="icon-list-circle more"></i> -->
         <!-- 根据封面图片来设定顶部背景色，感谢大神的思路-将封面图片水平垂直居中并放大很多很多倍作为背景图片呈现出类似背景渐变色的效果 -->
         <div class="navigation-bar-bg" ref="headerbar" v-if="sheetsDetailInfo" :style="{backgroundImage: `url(${coverImgURL})`, backgroundSize: '5000%', backgroundPosition: 'center', opacity: 0}"></div>
       </div>
@@ -48,7 +49,7 @@
         </div>
         <div class="bottom">
           <div class="play-songlist-header">
-              <i class="icon-playdetail playall-icon"></i>
+              <i class="icon-play-detail playall-icon"></i>
               <span class="playall-title">播放全部</span>
               <span class="songlist-count">(共{{ tracksListLength }}首)</span>
               <div class="selectmore">

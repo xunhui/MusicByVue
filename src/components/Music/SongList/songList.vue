@@ -151,10 +151,41 @@ export default {
     } 
     .songList-info {
       flex: 1;
+      
       margin-left: 5px;
-      .songList-info-name {
-        font-size: 16px;
+      @media (max-width: 320px) { 
+        .songList-info-name {
+          max-width: 190px;
+          font-size: 14px;
+        }
       }
+           
+      @media (min-width: 321px) and (max-width: 375px) { 
+        .songList-info-name {
+          max-width: 250px;
+          font-size: 16px;
+        }
+      }
+
+      @media (min-width: 376px) and (max-width: 414px) { 
+        .songList-info-name {
+          max-width: 290px;
+          font-size: 16px;
+        }
+      }
+
+      @media (min-width: 414px) { 
+        .songList-info-name {
+          font-size: 16px;
+        }
+      }
+
+      .songList-info-name {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+      }
+
       .songList-info-count {
         margin-top: 5px;
         color: #666;

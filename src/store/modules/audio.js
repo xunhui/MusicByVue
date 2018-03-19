@@ -6,13 +6,13 @@ const audio = {
 		playingState: false,
 		//当前正在播放歌曲信息 给一个默认..免得影响观感
 		playingSongInfo: {
-			"id": "73",
-		    "name": "有何不可",
-		    "singer": "许嵩",
-		    "img_url": "http://oiq8j9er1.bkt.clouddn.com/music_%E8%87%AA%E5%AE%9A%E4%B9%89.jpg",
-		    "url": "http://www.daiwei.org/vue/music/%E8%AE%B8%E5%B5%A9%20-%20%E6%9C%89%E4%BD%95%E4%B8%8D%E5%8F%AF.mp3",
-		    "type": "华语 许嵩",
-		 	"lyric": ""
+			"album": {
+				"blurPicUrl":"http://p1.music.126.net/lN7r5689EMOPy8G1unOIYw==/125344325567243.jpg",
+				"name": "学不会"
+			},
+		    "name": "那些你很冒险的梦",
+		    "artistsAlbum": "林俊杰 - 学不会"
+			
 		},
 		//当前正在播放歌曲的在所属歌单中的index
 		playingSongIndex: -1,
@@ -39,7 +39,7 @@ const audio = {
 			// !!! 此处有一个重大bug 如果修改当前播放音乐信息和播放音乐放在一块写，就会报play() method is interrupted by a new load()  
 			//个人猜测是修改了audio组件中的数据源会导致load()方法
 			state.playingSongInfo = obj.songInfo;
-			state.audioItSelf.setAttribute('src', obj.songInfo.url)
+			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + obj.songInfo.id + ".mp3")
 			state.audioItSelf.load();
 			state.audioItSelf.play()
 			console.log(state.audioItSelf)
