@@ -11,7 +11,8 @@ const audio = {
 				"name": "学不会"
 			},
 		    "name": "那些你很冒险的梦",
-		    "artistsAlbum": "林俊杰 - 学不会"
+		    "artistsAlbum": "林俊杰 - 学不会",
+		    url: "http://music.163.com/song/media/outer/url?id=108138.mp3"
 			
 		},
 		//当前正在播放歌曲的在所属歌单中的index

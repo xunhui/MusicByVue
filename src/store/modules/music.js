@@ -5,6 +5,8 @@ const music = {
 		MusicSheetsInfo: [],//歌单信息
 		MusicFindInfo: [],//发现音乐信息
 		showSheetsDetail: false,//歌单详情页的显示隐藏
+		//设置该状态是为了点击歌单后直接显示歌单信息而不用等待访问接口的时间
+		coverDetailInfo: {},//歌单封面及收藏人信息
 		SheetsDetailInfo: {},//歌单详情页的信息
 		songArtistsAndAlbum: ''//每一首歌的歌手及专辑
 	},
@@ -17,6 +19,8 @@ const music = {
 		getMusicFindInfo: state => state.MusicFindInfo,
 		//获取歌单详情页显示状态
 		getSheetsDetailState: state => state.showSheetsDetail,
+		//获取歌单封面详细信息
+		getCoverDetailInfo: state => state.coverDetailInfo,
 		//获取歌单详情音乐列表信息
 		getSheetsDetailInfo: state => state.SheetsDetailInfo,
 		//获取歌曲歌手、歌名、专辑
@@ -35,6 +39,10 @@ const music = {
 		//获取详情页歌单列表信息
 		setSheetsDetailInfo (state, songlists) {
 			state.SheetsDetailInfo = songlists;
+		},
+		//设置封面详情信息
+		setCoverDetailInfo (state, coverInfo) {
+			state.coverDetailInfo = coverInfo;
 		},
 		//显示、隐藏歌单详情页
 		showSheetsDetail (state) {

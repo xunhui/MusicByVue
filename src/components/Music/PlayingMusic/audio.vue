@@ -19,6 +19,9 @@ export default {
     },
     playingMusicInfo () {
       return this.$store.getters.getPlayingSongInfo;
+    },
+    initialMP3 () {
+      return 
     }
   },
   methods: {
@@ -30,7 +33,7 @@ export default {
   	}
   },
   mounted () {
-    console.log(this.$refs.audio.src)
+    console.log(this.$refs.audio)
     //mounted阶段才可以获取到dom节点
     this.$store.commit("setAudioItSelf", this.$refs.audio);
     this.$refs.audio.src = this.playingMusicInfo.url;

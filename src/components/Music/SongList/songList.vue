@@ -41,18 +41,23 @@ export default {
       this.showList = !this.showList;
     },
     showSongListDetail (id, count) {
+      console.log(this.items);
+      //将cover信息提取获取 优化用户体验
+      this.$store.commit('setCoverDetailInfo', this.items);
+
       //获取当前点击歌单的详细信息
       let detailURL = "/playlist/detail?id=" + id.toString();
       let listDetail = '';
-      console.log(detailURL)
+      this.$store.commit('showLoading');
       this.$http.get(detailURL).then( res => {
-        console.log(res);
+        this.$store.commit('hideLoading');
         //歌单详情里没有歌单数量这个字段，手动添加
         listDetail = res.data.result;
         listDetail.trackCount = count;
-        this.$store.dispatch('setSheetsDetailInfo', listDetail);
+        this.$store.commit('setSheetsDetailInfo', listDetail);
       }).catch( error => console.log(error))
       //同步修改详情页的显示
+      
       this.$store.commit('showSheetsDetail');
     },
     songListSettingAction (title) {

@@ -111,13 +111,57 @@ export default {
     .song-info {
       margin-left: 5px;
       flex: 1;
-      .song-name {
-        font-size: 16px;
+      
+      @media (max-width: 320px) { 
+        .song-name {
+          max-width: 190px;
+          font-size: 14px;
+        }
+        .song-artists {
+          max-width: 190px;
+        }
       }
+           
+      @media (min-width: 321px) and (max-width: 375px) { 
+        .song-name {
+          max-width: 250px;
+          font-size: 16px;
+        }
+        .song-artists {
+          max-width: 250px;
+        }
+      }
+
+      @media (min-width: 376px) and (max-width: 414px) { 
+        .song-name {
+          max-width: 290px;
+          font-size: 16px;
+        }
+        .song-artists {
+          max-width: 290px;
+        }
+      }
+
+      @media (min-width: 414px) { 
+        .song-name {
+          font-size: 16px;
+        }
+      }
+      
+
+      .song-name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
       .song-artists {
         margin-top: 5px;
         color: #666;
         font-size: 12px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
 
