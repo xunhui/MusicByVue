@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import topList from "./topList";
+import topList from "./TopList/topList";
 import songList from "./SongList/songList";
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'

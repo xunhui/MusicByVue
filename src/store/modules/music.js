@@ -52,18 +52,18 @@ const music = {
 			state.showSheetsDetail = false;
 		},
 		//设置歌曲信息
-		setSongArtistsAndAlbum (state, obj) {
-		    let allArtists = '', album = '';
-		    let artLen = obj.artists.length;
-		    for (let i = 0;i < artLen;i++) {
-		      allArtists += obj.artists[i].name;
-		      if (i+1 < artLen)
-		        allArtists += '/'
-		    }
-		    album = obj.album.name;
-		    console.log(artLen)
-		    state.songArtistsAndAlbum = allArtists + ' - ' + album;
-    	}
+		// setSongArtistsAndAlbum (state, obj) {
+		//     let allArtists = '', album = '';
+		//     let artLen = obj.artists.length;
+		//     for (let i = 0;i < artLen;i++) {
+		//       allArtists += obj.artists[i].name;
+		//       if (i+1 < artLen)
+		//         allArtists += '/'
+		//     }
+		//     album = obj.album.name;
+		//     console.log(artLen)
+		//     state.songArtistsAndAlbum = allArtists + ' - ' + album;
+  //   	}
 	},
 	actions: {
 		//异步进行

@@ -191,7 +191,7 @@ export default {
       position: relative;
       .cover {
         display: flex;
-        padding: 10px 15px;
+        padding: 30px 15px;
         .cover-img {
           width: 120px;
           height: 120px;
@@ -224,7 +224,7 @@ export default {
       .operation {
         display: flex;
         align-items: center;
-        padding: 10px 0;
+        padding: 0 0 10px 0;
         div {
           flex: 1;
           text-align: center;

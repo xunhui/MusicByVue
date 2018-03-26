@@ -10,7 +10,7 @@
       <div class="circle-diy" @click.stop="playOrPause">
         <i class="play-pause" :class="[playingSongState ? 'icon-pause' : 'icon-play']"></i>
       </div>
-      <i @click="showNowPlayingList" class="music-list icon-list-music"></i>
+      <i @click.stop="showNowPlayingList" class="music-list icon-list-music"></i>
     </div>
 
   </div>
@@ -42,7 +42,9 @@ export default {
       this.$store.commit('playOrPause');
     },
     showNowPlayingList () {
-
+      console.log('')
+      this.$store.commit('showPlayingSongList');
+      console.log(this.$store.getters.getPlayingSongListShowState)
     }
   },
   created () {
@@ -101,7 +103,7 @@ export default {
       border: 2px solid #666;
       width: 25px;
       height: 25px;
-      margin-right: 10px;
+      margin-right: 15px;
       .play-pause {
         position: absolute;
         top: 50%;
@@ -115,7 +117,7 @@ export default {
       text-align: center;
       color: #666;
       font-size: 25px;
-      margin-right: 10px;
+      padding:  12.5px 10px 12.5px 0;    
     }
   }
   

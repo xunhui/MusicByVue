@@ -57,7 +57,7 @@ export default {
             iconClass: 'icon-share'
           },
           {
-            iconText: '歌手:' + this.list.singer,
+            iconText: '歌手:' + this.getArtists(this.list),
             iconClass: 'icon-collect'
           },
           {
@@ -67,6 +67,19 @@ export default {
         ]
       })
     },
+    getArtists (obj) {
+      let allArtists = '';
+      let artLen = obj.artists.length;
+      for (let i = 0;i < artLen;i++) {
+        allArtists += obj.artists[i].name;
+        if (i+1 < artLen) 
+          allArtists += '/'
+      }
+      return allArtists;
+    },
+    getAlbum (obj) {
+      return obj.album.name;
+    },
     getArtistsAndAlbum (obj) {
       let allArtists = '', album = '';
       let artLen = obj.artists.length;
@@ -74,7 +87,6 @@ export default {
         allArtists += obj.artists[i].name;
         if (i+1 < artLen) 
           allArtists += '/'
-
       }
       album = obj.album.name;
       return allArtists + ' - ' + album;

@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../common/style/global.scss";
+@import "../../../common/style/global.scss";
 .topList {
 	height: 50px;
 	display: flex;

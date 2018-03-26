@@ -1,4 +1,4 @@
-<!-- 播放列表组件 -->
+<!-- H5 audio播放组件 -->
 <template>
   <div class="audio">
 	<audio ref="audio" @pause="musicPause" @play="musicPlay"></audio>

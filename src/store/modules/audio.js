@@ -17,6 +17,8 @@ const audio = {
 		},
 		//当前正在播放歌曲的在所属歌单中的index
 		playingSongIndex: -1,
+		//播放列表显示状态
+		ifplayingSongListShow: false,
 		//当前播放歌单列表 点击某歌单的某首歌 将该歌单的信息置为当前播放列表
 		playingSongList: []
 	},
@@ -25,6 +27,7 @@ const audio = {
 		getPlayingState: state => state.playingState,
 		getPlayingSongInfo: state => state.playingSongInfo,
 		getPlayingSongIndex: state => state.playingSongIndex,
+		getPlayingSongListShowState: state => state.ifplayingSongListShow,
 		getPlayingSongList: state => state.playingSongList
 	},
 	mutations: {
@@ -55,11 +58,11 @@ const audio = {
 				state.audioItSelf.pause();
 			}
 		},
-		setPlayingSongInfo (state, songInfo) {
-			
+		showPlayingSongList (state) {
+			state.ifplayingSongListShow = true;
 		},
-		setPlayingSongIndex (state, index) {
-			
+		hidePlayingSongList (state) {
+			state.ifplayingSongListShow = false;
 		},
 		setPlayingSongList (state, songList) {
 			state.playingSongList = songList;
@@ -74,12 +77,6 @@ const audio = {
 		},
 		pauseMusic ({commit}) {
 			commit("pauseMusic")
-		},
-		setPlayingSongInfo ({commit}, songInfo) {
-			commit("setPlayingSongInfo", songInfo)
-		},
-		setPlayingSongIndex ({commit}) {
-			commit("setPlayingSongIndex")
 		},
 		setPlayingSongList ({commit}, songList) {
 			commit("setPlayingSongList", songList)

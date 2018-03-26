@@ -4,9 +4,8 @@
         <div class="operationList" v-for="item in iconInfo" :key="item.id">
             <i :class="item.iconClass" class="icon"></i>
             <p class="title">{{ item.iconText }}</p>
-    </div>  
-</div>
-    
+        </div>  
+    </div>
 </template>
 
 <script>
