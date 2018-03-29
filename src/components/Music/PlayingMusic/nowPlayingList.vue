@@ -14,14 +14,15 @@
 						<p class="list-count">(233)</p>
 					</div>
 				</div>
-				<div class="each-list">
-					<div class="each-song">
+				<div v-if="nowPlayingList.length" class="each-list" v-for="eachsong in nowPlayingList" :bind='eachsong.id'>
+					<div class="each-song" >
 						<i class="nowplaying-icon"></i>
-						<p class="song-name">一首简单的歌</p>
+						<p class="song-name">{{ eachsong.name }}</p>
 						<p class="gap">-</p>
 						<p class="song-singer">呆呆</p>
 					</div>
 				</div>	
+				<div v-if="!nowPlayingList.length">暂无播放列表，快去点歌吧！</div>
 			</div>
 		</transition>
 	</div>
@@ -36,7 +37,10 @@ export default {
   components: {},
   computed: {
     ifShowPlayingList() {
-      return this.$store.getters.getPlayingSongListShowState;
+      	return this.$store.getters.getPlayingSongListShowState;
+    },
+    nowPlayingList () {
+    	return this.$store.getters.getPlayingSongList;
     }
   },
   methods: {
@@ -73,7 +77,7 @@ export default {
   right: 0;
   bottom: 0;
   overflow-y: auto;
-  max-height: 250px;
+  max-height: 400px;
   &::-webkit-scrollbar {
     display: none;
   }

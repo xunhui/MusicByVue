@@ -29,13 +29,12 @@ export default {
   },
   methods: {
     clickToPlay (index) {
-      console.log(this.allLists);
-      // let obj = {};
-      // this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
-      // obj.index = index;
-      // obj.songInfo = this.list;
-      // console.log(obj)
-      // this.$store.commit('playIndexMusic', obj);
+      let obj = {};
+      //this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
+      obj.index = index;
+      obj.songSheetInfo = this.allLists;
+      console.log(obj);
+      this.$store.commit('playIndexMusic', obj);
     },
     showMoreOperation (songName) {
       this.$store.commit('showOperation', {

@@ -5,7 +5,7 @@
     <div class="nowplaying-song">
       <div class="song-info">
         <p class="song-name">{{ playingSongInfo.name }}</p>
-        <p class="song-singer">{{ playingSongInfo.artistsAlbum }}</p>
+        <p class="song-singer">{{ getArtistAndAlbum }}</p>
       </div>
       <div class="circle-diy" @click.stop="playOrPause">
         <i class="play-pause" :class="[playingSongState ? 'icon-pause' : 'icon-play']"></i>
@@ -35,6 +35,18 @@ export default {
     },
     playingSongState () {
       return this.$store.getters.getPlayingState;
+    },
+    getArtistAndAlbum () {
+      console.log(this.playingSongInfo)
+      let allArtists = '', album = '';
+      let artLen = this.playingSongInfo.artists.length;
+      for (let i = 0;i < artLen;i++) {
+        allArtists += this.playingSongInfo.artists[i].name;
+        if (i+1 < artLen) 
+          allArtists += '/'
+      }
+      album = this.playingSongInfo.album.name;
+      return allArtists + ' - ' + album;
     }
   },
   methods: {
