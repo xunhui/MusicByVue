@@ -201,6 +201,7 @@ export default {
         // vertical-align: middle;
         position: relative;
         top: 2px;
+        color: $main_iconcolor;
       }
       span {
         font-size: 16px;

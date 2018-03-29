@@ -3,85 +3,130 @@
 	<!-- 歌单列表播放方式 -->
 	<div class="now-playingList">
 		<transition name="fade">
-			<div class="mask" v-if="ifShowPlayingList"></div>
+			<div class="mask" v-if="ifShowPlayingList" @click="hidePlayingList"></div>
 		</transition>
 		<transition name="slide">
 			<div class="song-list" v-if="ifShowPlayingList">
-				<div class="list-playmode">
-					<i class="playmode-icon"></i>
-					<p class="playmode-title"></p>
-					<p class="list-count">233</p>
+				<div class="top-menu">
+					<div class="list-playmode">
+						<i class="playmode-icon icon-music-random"></i>
+						<p class="playmode-title">随机播放</p>
+						<p class="list-count">(233)</p>
+					</div>
 				</div>
-				<div>
-					<p class="song-name">一首简单的歌</p>
-				</div>
+				<div class="each-list">
+					<div class="each-song">
+						<i class="nowplaying-icon"></i>
+						<p class="song-name">一首简单的歌</p>
+						<p class="gap">-</p>
+						<p class="song-singer">呆呆</p>
+					</div>
+				</div>	
 			</div>
 		</transition>
 	</div>
 </template>
 
 <script>
-	export default {
-		data () {
-			return {
-
-			}
-		},
-		props: [],
-		components: {
-
-		},
-		computed: {
-			ifShowPlayingList () {
-				return this.$store.getters.getPlayingSongListShowState;
-			}
-		},
-		methods: {
-
-		}
-	}
+export default {
+  data() {
+    return {};
+  },
+  props: [],
+  components: {},
+  computed: {
+    ifShowPlayingList() {
+      return this.$store.getters.getPlayingSongListShowState;
+    }
+  },
+  methods: {
+    hidePlayingList() {
+      this.$store.commit("hidePlayingSongList");
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 @import "../../../common/style/global.scss";
-	.mask {
-	    background: #000;
-	    opacity: 0.8;
-	    position: fixed;
-	    top: 0;
-	    left: 0;
-	    right: 0;
-	    bottom: 0;
-	    z-index: 20;
-	    &.fade-enter,
-	    &.fade-leave-to {
-	      opacity: 0;
-	    }
-	    &.fade-enter-active,
-	    &.fade-leave-active {
-	      transition: opacity 0.3s;
-	    }
-  	}
-  	.song-list {
-  		position: fixed;
-	    left: 0;
-	    right: 0;
-	    bottom: 0;
-	    overflow-y: auto;
-	    max-height: 250px;
-	    &::-webkit-scrollbar {
-	      display: none;
-	    }
-	    background: $baseColor;
-	    z-index: 21;
-	    padding-bottom: 10px;   
-	    &.slide-enter,
-	    &.slide-leave-to {
-	      transform: translateY(100%);
-	    }
-	    &.slide-enter-active,
-	    &.slide-leave-active {
-	      transition: all 0.3s;
-	    }
-  	}
+.mask {
+  background: #000;
+  opacity: 0.8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  &.fade-enter,
+  &.fade-leave-to {
+    opacity: 0;
+  }
+  &.fade-enter-active,
+  &.fade-leave-active {
+    transition: opacity 0.3s;
+  }
+}
+.song-list {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  max-height: 250px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  background: $baseColor;
+  z-index: 21;
+  padding-bottom: 10px;
+  &.slide-enter,
+  &.slide-leave-to {
+    transform: translateY(100%);
+  }
+  &.slide-enter-active,
+  &.slide-leave-active {
+    transition: all 0.3s;
+  }
+  .top-menu {
+	border-bottom: $border_1px;
+    .list-playmode {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      &:active {
+        background: $list_active;
+      }
+      .playmode-icon {
+        margin-left: 10px;
+        font-size: 25px;
+        color: $subtext_color;
+      }
+      .playmode-title {
+        margin: 0 5px;
+      }
+    }
+  }
+  .each-list {
+	  &:active {
+        background: $list_active;
+      }
+    .each-song {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      margin-left: 10px;
+      border-bottom: $border_1px;
+      .gap {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: $subtext_color;
+      }
+      .song-singer {
+        color: $subtext_color;
+        font-size: 14px;
+      }
+    }
+  }
+}
 </style>

@@ -39,7 +39,7 @@ export default {
     line-height: 50px;
     color: #000;
     flex: 1;
-    border-bottom: 1px solid $border_1px;
+    border-bottom: $border_1px;
   }
 }
 </style>

@@ -5,18 +5,23 @@ $baseColor: #f2f4f5;//页面基色调
 // router unactive状态下的颜色
 $link_active: #ffffff;
 
-//一像素颜色
-$border_1px : rgba(7, 17, 27, 0.1);
+//一像素樣式
+$border_1px : 1px solid rgba(7, 17, 27, 0.1);
+$border_color: rgba(7, 17, 27, 0.1);
 
 // 点击列表active的背景顏色
 $list_active: #d5d5d5;
 
 $rgba_active: rgba(0,0,0,0.1);
 
-// 图标颜色
-$icon_color: #999;
+// 大部分操作图标颜色
+$sub_iconcolor: #A6A6A6;
+$main_iconcolor: #666;
+
+//副-文本颜色
+$subtext_color: #A6A6A6;
 
 $maskBackground: rgba(0,0,0,0.5);
  
-//********************sideBar 
+//sideBar 
 $sideBackground: rgba(0,0,0,0.5);

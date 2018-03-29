@@ -111,7 +111,7 @@ export default {
   display: flex;
   align-items: center;
   background: #e7e9e9;
-  color: #666;
+  color: $sub_iconcolor;
   .toggleicon {
     font-size: 14px;
     padding: 8px 10px;
@@ -135,7 +135,7 @@ export default {
 }
 
 .bottomBorder {
-  border-bottom: 1px solid $border_1px;
+  border-bottom: $border_1px;
 }
 
 .each-songList {
@@ -193,13 +193,13 @@ export default {
 
       .songList-info-count {
         margin-top: 5px;
-        color: #666;
+        color: $subtext_color;
         font-size: 12px;
       }
     }
   }
   .option {
-    color: #666;
+    color: $sub_iconcolor;
     width: 60px;
     height: 60px;
     line-height: 60px;

@@ -52,7 +52,7 @@ export default {
     align-items: center;
     flex: 5;
     .list-icon {
-      color: $icon_color;
+      color: $sub_iconcolor;
       font-size: 24px;
       margin-left: 15px;
     }
@@ -66,7 +66,7 @@ export default {
   .list-right-attached {
     flex: 1;
     line-height: 24px;
-    color: #999;
+    color: $sub_iconcolor;
     text-align: right;
     margin-right: 15px;
     font-size: 12px;

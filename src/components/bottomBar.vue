@@ -42,9 +42,7 @@ export default {
       this.$store.commit('playOrPause');
     },
     showNowPlayingList () {
-      console.log('')
       this.$store.commit('showPlayingSongList');
-      console.log(this.$store.getters.getPlayingSongListShowState)
     }
   },
   created () {
@@ -90,7 +88,7 @@ export default {
       }
       .song-singer {
         margin-top: 3px;
-        color: #666;
+        color: $subtext_color;
         font-size: 12px;
       }
     }
@@ -115,7 +113,7 @@ export default {
     }
     .music-list {
       text-align: center;
-      color: #666;
+      color: $main_iconcolor;
       font-size: 25px;
       padding:  12.5px 10px 12.5px 0;    
     }

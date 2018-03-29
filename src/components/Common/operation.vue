@@ -90,7 +90,7 @@ export default {
       padding-top: 20px;
       padding-bottom: 5px;
       .header-title {
-        color: #666;
+        color: $subtext_color;
         font-size: 14px;
         margin-left: 10px;
       }

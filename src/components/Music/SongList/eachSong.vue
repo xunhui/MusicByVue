@@ -21,7 +21,7 @@ export default {
       //不能给每个组件绑定一个当前index数据
   	}
   },
-  props: ['list', 'index'],
+  props: ['list', 'index','allLists'],
   computed: {
     currentIndex () {
       return this.$store.getters.getPlayingSongIndex;
@@ -29,12 +29,13 @@ export default {
   },
   methods: {
     clickToPlay (index) {
-      let obj = {};
-      this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
-      obj.index = index;
-      obj.songInfo = this.list;
-      console.log(obj)
-      this.$store.commit('playIndexMusic', obj);
+      console.log(this.allLists);
+      // let obj = {};
+      // this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
+      // obj.index = index;
+      // obj.songInfo = this.list;
+      // console.log(obj)
+      // this.$store.commit('playIndexMusic', obj);
     },
     showMoreOperation (songName) {
       this.$store.commit('showOperation', {
@@ -169,7 +170,7 @@ export default {
 
       .song-artists {
         margin-top: 5px;
-        color: #666;
+        color: $subtext_color;
         font-size: 12px;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -184,7 +185,7 @@ export default {
     bottom: 0;
     right: 0;
     left: 65px;
-    background: $border_1px;
+    background: rgba(7, 17, 27, 0.1);
   }
   .more {
     position: absolute;
@@ -194,7 +195,7 @@ export default {
     height: 60px;
     line-height: 60px;
     text-align: center;
-    color: #aaa; 
+    color: $sub_iconcolor; 
     &:active {
       background: $list_active;
     }

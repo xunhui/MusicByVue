@@ -60,7 +60,7 @@
               </div>
           </div>
           <div class="all-playsonglist">
-            <each-song v-for="(item, index) in tracksList" :list="item" :index="index" :key="item.id"></each-song>
+            <each-song v-for="(item, index) in tracksList" :list="item" :allLists="tracksList" :index="index" :key="item.id"></each-song>
           </div>
           <div class="collect-amount">
             <p class="collect-amount-text">共有...只有我收藏hhh~</p>
@@ -256,7 +256,7 @@ export default {
         align-items: center;
         height: 50px;
         background: $baseColor;
-        border-bottom: 1px solid $border_1px;
+        border-bottom: $border_1px;
         &:active {
           background: $list_active;
         }
@@ -299,7 +299,7 @@ export default {
           padding-right: 10px;
           margin-left: 50px;
           text-align: center;
-          border-bottom: 1px solid $border_1px;
+          border-bottom: $border_1px;
         }
       }
     }

@@ -61,7 +61,7 @@ export default {
 		padding: 0 10px;
 	}
 	.bottomBorder {
-		border-bottom: 1px solid $border_1px;
+		border-bottom: $border_1px;
 	}
 	.rightPart {
 		flex: 1;
@@ -78,7 +78,7 @@ export default {
 			}
 			.titleCount {
 				margin-left: 5px;
-				color:#aaa;
+				color:$subtext_color;
 				font-size:10px;
 			}
 		}
