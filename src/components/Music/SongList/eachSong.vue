@@ -2,6 +2,7 @@
 <template>
   <div class="eachSong">
     <div class="song-detail" @click="clickToPlay(index)">  
+      <!-- 需要判断当前所听音乐在对应的哪个歌单，解决每个歌单的相同index位置都是播放状态bug -->
       <i class="icon-volume-medium left" v-show="currentIndex == index"></i>
       <p class="song-index left" v-show="currentIndex != index">{{ index+1 }}</p>
       <div class="song-info">

@@ -5,8 +5,8 @@
 		<topList iconInfo="icon-zuijinplay" titleText="最近播放" titleCount="32" hasBorder=true></topList>
 		<topList iconInfo="icon-diantai" titleText="我的电台" titleCount="3" hasBorder=true></topList>
 		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
-		<!-- 用v-for循环渲染组件可以让每个组件内部拥有自己的变量  歌单列表 -->
     <clip-loader :loading="loading" :color="baseColor" :size="height" class="loading"></clip-loader>
+		<!-- 用v-for循环渲染组件可以让每个组件内部拥有自己的变量  歌单列表 -->
 		<songList v-if="!loading" :items="EachSheetsInfo" v-for="EachSheetsInfo in SheetsInfo" :key="EachSheetsInfo.id"></songList>
   </div>
 </template>
