@@ -37,7 +37,6 @@ export default {
       return this.$store.getters.getPlayingState;
     },
     getArtistAndAlbum () {
-      console.log(this.playingSongInfo)
       let allArtists = '', album = '';
       let artLen = this.playingSongInfo.artists.length;
       for (let i = 0;i < artLen;i++) {

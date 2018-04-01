@@ -53,14 +53,14 @@
           <div class="play-songlist-header">
               <i class="icon-play-detail playall-icon"></i>
               <span class="playall-title">播放全部</span>
-              <span class="songlist-count">(共{{ tracksListLength }}首)</span>
+              <span class="songlist-count">(共{{ sheetsDetailInfo.trackCount }}首)</span>
               <div class="selectmore">
                 <i class="icon-menu selectmore-icon"></i>
                 <span class="selectmore-text">多选</span>
               </div>
           </div>
           <div class="all-playsonglist">
-            <each-song v-for="(item, index) in tracksList" :list="item" :allLists="tracksList" :index="index" :key="item.id"></each-song>
+            <each-song v-for="(item, index) in sheetsDetailInfo.tracks" :list="item" :sheetsDetailInfo="sheetsDetailInfo" :index="index" :key="item.id"></each-song>
           </div>
           <div class="collect-amount">
             <p class="collect-amount-text">共有...只有我收藏hhh~</p>
@@ -93,11 +93,8 @@ export default {
     coverDetailInfo () {
       return this.$store.getters.getCoverDetailInfo;
     },
-    tracksList () {
-      return this.$store.getters.getSheetsDetailInfo.tracks;
-    },
-    tracksListLength () {
-      return this.$store.getters.getSheetsDetailInfo.trackCount;
+    sheetsDetailInfo () {
+      return this.$store.getters.getSheetsDetailInfo;
     },
     ifLoading () {
       return this.$store.getters.getShowLoadingState;
@@ -119,8 +116,8 @@ export default {
     }
   },
   created() {
-    //已经在APP.vue中挂载到页面中了 所以点击后仅仅只是数据的改变
-    console.log(this.$store.getters.getSheetsDetailInfo);
+    //已经在APP.vue中挂载到页面中了 所以点击后仅仅只是数据的改变而并不会重新创建
+    console.log()
   },
   // 使用watch侦听器来侦听该页面的show or notshow状态 来实现每当重新显示该组件时滚动条回到最初位置
   watch: {

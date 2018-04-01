@@ -15,22 +15,24 @@ const audio = {
 		    	name: '林俊杰'
 		    }],
 		    url: "http://music.163.com/song/media/outer/url?id=108138.mp3"
-			
 		},
 		//当前正在播放歌曲的在所属歌单中的index
 		playingSongIndex: -1,
+		//当前播放歌单的id
+		playingSongListID: -1,
 		//播放列表显示状态
 		ifplayingSongListShow: false,
 		//当前播放歌单列表 点击某歌单的某首歌 将该歌单的信息置为当前播放列表
-		playingSongList: []
+		playingSongListInfo: {}
 	},
 	getters: {
 		getAudioItSelf: state => state.audioItSelf,
 		getPlayingState: state => state.playingState,
 		getPlayingSongInfo: state => state.playingSongInfo,
 		getPlayingSongIndex: state => state.playingSongIndex,
+		getPlayingSongListID: state => state.playingSongListID,
 		getPlayingSongListShowState: state => state.ifplayingSongListShow,
-		getPlayingSongList: state => state.playingSongList
+		getPlayingSongListInfo: state => state.playingSongListInfo
 	},
 	mutations: {
 		setAudioItSelf (state, audio) {
@@ -45,8 +47,9 @@ const audio = {
 			// !!! 此处有一个重大bug 如果修改当前播放音乐信息和播放音乐放在一块写，就会报play() method is interrupted by a new load()  
 			//个人猜测是修改了audio组件中的数据源会导致load()方法
 			//设置当前播放歌单信息和当前播放歌曲信息
-			state.playingSongList = obj.songSheetInfo;
-			state.playingSongInfo = obj.songSheetInfo[obj.index];
+			state.playingSongListInfo = obj.sheetsDetailInfo;
+			state.playingSongListID = obj.sheetsDetailInfo.id;
+			state.playingSongInfo = state.playingSongList[obj.index];
 			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
 			state.audioItSelf.load();
 			state.audioItSelf.play()
@@ -68,8 +71,8 @@ const audio = {
 		hidePlayingSongList (state) {
 			state.ifplayingSongListShow = false;
 		},
-		setPlayingSongList (state, songList) {
-			state.playingSongList = songList;
+		setPlayingSongListInfo (state, songListInfo) {
+			state.playingSongListInfo = songListInfo;
 		}
 	},
 	actions: {

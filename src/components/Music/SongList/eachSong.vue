@@ -2,9 +2,9 @@
 <template>
   <div class="eachSong">
     <div class="song-detail" @click="clickToPlay(index)">  
-      <!-- 需要判断当前所听音乐在对应的哪个歌单，解决每个歌单的相同index位置都是播放状态bug -->
-      <i class="icon-volume-medium left" v-show="currentIndex == index"></i>
-      <p class="song-index left" v-show="currentIndex != index">{{ index+1 }}</p>
+      <!-- 需要判断当前所听音乐在对应的哪个歌单，解决每个歌单的相同index位置都是播放状态bug 用了一个比较蠢的方法（判断当前显示歌单和播放歌单是否是同一个id）-->
+      <i class="icon-volume-medium left" v-show="playingSongListID == showingSongListID && currentIndex == index"></i>
+      <p class="song-index left" v-show="playingSongListID != showingSongListID || currentIndex != index">{{ index+1 }}</p>
       <div class="song-info">
         <p class="song-name">{{ list.name }}</p>
         <p class="song-artists">{{ getArtistsAndAlbum(list) }}</p>  
@@ -22,10 +22,16 @@ export default {
       //不能给每个组件绑定一个当前index数据
   	}
   },
-  props: ['list', 'index','allLists'],
+  props: ['list', 'index','sheetsDetailInfo'],
   computed: {
     currentIndex () {
       return this.$store.getters.getPlayingSongIndex;
+    },
+    playingSongListID () {
+      return this.$store.getters.getPlayingSongListID;
+    },
+    showingSongListID () {
+     return this.sheetsDetailInfo.id; 
     }
   },
   methods: {
@@ -33,7 +39,7 @@ export default {
       let obj = {};
       //this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
       obj.index = index;
-      obj.songSheetInfo = this.allLists;
+      obj.sheetsDetailInfo = this.sheetsDetailInfo;
       console.log(obj);
       this.$store.commit('playIndexMusic', obj);
     },

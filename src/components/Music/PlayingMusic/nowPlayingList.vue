@@ -14,15 +14,15 @@
 						<p class="list-count">(233)</p>
 					</div>
 				</div>
-				<div v-if="nowPlayingList.length" class="each-list" v-for="eachsong in nowPlayingList" :bind='eachsong.id'>
-					<div class="each-song" >
-						<i class="nowplaying-icon"></i>
+				<div v-if="nowPlayingListInfo.tracks.length" class="each-list" v-for="(eachsong, index) in nowPlayingListInfo.tracks" :bind='eachsong.id'>
+					<div class="each-song">
+						<i class="nowplaying-icon" v-if="currentIndex == index && playingSongListID == showingSongListID"></i>
 						<p class="song-name">{{ eachsong.name }}</p>
 						<p class="gap">-</p>
 						<p class="song-singer">呆呆</p>
 					</div>
 				</div>	
-				<div v-if="!nowPlayingList.length">暂无播放列表，快去点歌吧！</div>
+				<div v-if="!nowPlayingListInfo.tracks.length">暂无播放列表，快去点歌吧！</div>
 			</div>
 		</transition>
 	</div>
@@ -39,8 +39,17 @@ export default {
     ifShowPlayingList() {
       	return this.$store.getters.getPlayingSongListShowState;
     },
-    nowPlayingList () {
-    	return this.$store.getters.getPlayingSongList;
+    nowPlayingListInfo () {
+    	return this.$store.getters.getPlayingSongListInfo;
+    },
+    playingSongListID () {
+      return this.$store.getters.getPlayingSongListID;
+    },
+    showingSongListID () {
+     return this.nowPlayingListInfo.id; 
+    },
+    currentIndex () {
+      return this.$store.getters.getPlayingSongIndex;
     }
   },
   methods: {

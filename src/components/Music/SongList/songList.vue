@@ -41,10 +41,8 @@ export default {
       this.showList = !this.showList;
     },
     showSongListDetail (id, count) {
-      console.log(this.items);
       //将cover信息提取获取 优化用户体验
       this.$store.commit('setCoverDetailInfo', this.items);
-
       //获取当前点击歌单的详细信息
       let detailURL = "/playlist/detail?id=" + id.toString();
       let listDetail = '';
