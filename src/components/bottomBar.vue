@@ -5,7 +5,7 @@
     <div class="nowplaying-song">
       <div class="song-info">
         <p class="song-name">{{ playingSongInfo.name }}</p>
-        <p class="song-singer">{{ getArtistAndAlbum }}</p>
+        <p class="song-singer">{{ getArtistsAlbumInfo().artistsAndAlbum }}</p>
       </div>
       <div class="circle-diy" @click.stop="playOrPause">
         <i class="play-pause" :class="[playingSongState ? 'icon-pause' : 'icon-play']"></i>
@@ -18,6 +18,7 @@
 
 <script>
 import myAudio from "./Music/PlayingMusic/audio"
+import common from '@/common/js/common.js'
 import axios from "axios"
 export default {
   name: 'bottomBar',
@@ -35,17 +36,6 @@ export default {
     },
     playingSongState () {
       return this.$store.getters.getPlayingState;
-    },
-    getArtistAndAlbum () {
-      let allArtists = '', album = '';
-      let artLen = this.playingSongInfo.artists.length;
-      for (let i = 0;i < artLen;i++) {
-        allArtists += this.playingSongInfo.artists[i].name;
-        if (i+1 < artLen) 
-          allArtists += '/'
-      }
-      album = this.playingSongInfo.album.name;
-      return allArtists + ' - ' + album;
     }
   },
   methods: {
@@ -54,6 +44,9 @@ export default {
     },
     showNowPlayingList () {
       this.$store.commit('showPlayingSongList');
+    },
+    getArtistsAlbumInfo () {
+      return common.artistsAlbumInfo(this.playingSongInfo)
     }
   },
   created () {
@@ -64,7 +57,6 @@ export default {
 
 <style lang="scss">
 @import "../Common/style/global.scss";
-
 .bottomBar {
   display: flex;
   align-items: center;

@@ -7,7 +7,7 @@
       <p class="song-index left" v-show="playingSongListID != showingSongListID || currentIndex != index">{{ index+1 }}</p>
       <div class="song-info">
         <p class="song-name">{{ list.name }}</p>
-        <p class="song-artists">{{ getArtistsAndAlbum(list) }}</p>  
+        <p class="song-artists">{{ getArtistsAlbumInfo(list).artistsAndAlbum }}</p>  
       </div>
     </div>
     <div class="border-1px"></div>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import common from '@/common/js/common.js'
 export default {
   data () {
   	return {
@@ -64,7 +65,7 @@ export default {
             iconClass: 'icon-share'
           },
           {
-            iconText: '歌手:' + this.getArtists(this.list),
+            iconText: '歌手:' + this.getArtistsAlbumInfo(this.list).artists,
             iconClass: 'icon-collect'
           },
           {
@@ -74,29 +75,8 @@ export default {
         ]
       })
     },
-    getArtists (obj) {
-      let allArtists = '';
-      let artLen = obj.artists.length;
-      for (let i = 0;i < artLen;i++) {
-        allArtists += obj.artists[i].name;
-        if (i+1 < artLen) 
-          allArtists += '/'
-      }
-      return allArtists;
-    },
-    getAlbum (obj) {
-      return obj.album.name;
-    },
-    getArtistsAndAlbum (obj) {
-      let allArtists = '', album = '';
-      let artLen = obj.artists.length;
-      for (let i = 0;i < artLen;i++) {
-        allArtists += obj.artists[i].name;
-        if (i+1 < artLen) 
-          allArtists += '/'
-      }
-      album = obj.album.name;
-      return allArtists + ' - ' + album;
+    getArtistsAlbumInfo (obj) {
+      return common.artistsAlbumInfo(obj);
     }
   }
 }

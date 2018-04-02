@@ -16,10 +16,10 @@
 				</div>
 				<div v-if="nowPlayingListInfo.tracks.length" class="each-list" v-for="(eachsong, index) in nowPlayingListInfo.tracks" :bind='eachsong.id'>
 					<div class="each-song">
-						<i class="nowplaying-icon" v-if="currentIndex == index && playingSongListID == showingSongListID"></i>
-						<p class="song-name">{{ eachsong.name }}</p>
-						<p class="gap">-</p>
-						<p class="song-singer">呆呆</p>
+						<i class="nowplaying-icon icon-volume-medium" v-if="currentIndex == index && playingSongListID == showingSongListID"></i>
+						<p class="song-name" :class="{playingStyle: currentIndex == index}">{{ eachsong.name }}</p>
+						<p class="gap" :class="{playingStyle: currentIndex == index}">-</p>
+						<p class="song-singer" :class="{playingStyle: currentIndex == index}">{{ getArtistsAlbumInfo(eachsong).artists }}</p>
 					</div>
 				</div>	
 				<div v-if="!nowPlayingListInfo.tracks.length">暂无播放列表，快去点歌吧！</div>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import common from '@/common/js/common.js'
 export default {
   data() {
     return {};
@@ -55,6 +56,9 @@ export default {
   methods: {
     hidePlayingList() {
       this.$store.commit("hidePlayingSongList");
+    },
+    getArtistsAlbumInfo (obj) {
+      return common.artistsAlbumInfo(obj);
     }
   }
 };
@@ -130,6 +134,11 @@ export default {
       height: 50px;
       margin-left: 10px;
       border-bottom: $border_1px;
+      .nowplaying-icon {
+        color: $mainColor;
+        margin-right: 5px;
+        margin-top: 2px;
+      }
       .gap {
         margin-left: 5px;
         margin-right: 5px;
@@ -138,6 +147,11 @@ export default {
       .song-singer {
         color: $subtext_color;
         font-size: 14px;
+        margin-top: 2px;
+      }
+      .playingStyle {
+        color: $mainColor; 
+        font-weight: 550;
       }
     }
   }

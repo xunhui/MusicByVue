@@ -49,7 +49,7 @@ const audio = {
 			//设置当前播放歌单信息和当前播放歌曲信息
 			state.playingSongListInfo = obj.sheetsDetailInfo;
 			state.playingSongListID = obj.sheetsDetailInfo.id;
-			state.playingSongInfo = state.playingSongList[obj.index];
+			state.playingSongInfo = state.playingSongListInfo.tracks[obj.index];
 			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
 			state.audioItSelf.load();
 			state.audioItSelf.play()
