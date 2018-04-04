@@ -5,7 +5,7 @@
 			<router-link tag="i" to="/myMusic">
 				<i class="icon-music music"></i>
 			</router-link>
-			<router-link tag="i" to="/recommend">
+			<router-link tag="i" to="/find">
 				<i class="icon-wangyi wangyi"></i>
 			</router-link>
 			<router-link tag="i" to="/community">

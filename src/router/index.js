@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MyMusic from '@/components/Music/myMusic'
-import Recommend from '@/components/Recommend/recommend'
+import Find from '@/components/Find/find'
 import Community from '@/components/Community/community'
 
 Vue.use(Router)
@@ -19,9 +19,9 @@ export default new Router({
       component: MyMusic
     },
     {
-    	path: '/recommend',
-	    component: Recommend,
-	    name: 'recommend'
+    	path: '/find',
+	    component: Find,
+	    name: 'find'
     },
     {
     	path: '/community',

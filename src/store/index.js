@@ -4,6 +4,7 @@ import User from './modules/user.js'
 import Music from './modules/music.js'
 import Audio from './modules/audio.js'
 import Common from './modules/common.js'
+import Find from './modules/find.js'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ const store = new Vuex.Store({
         user: User,
         music: Music,
         audio: Audio,
-        common: Common
+        common: Common,
+        find: Find
     }
 })
 

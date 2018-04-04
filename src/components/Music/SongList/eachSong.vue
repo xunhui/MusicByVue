@@ -1,7 +1,7 @@
 <!-- 歌单内的播放列表组件 -->
 <template>
   <div class="eachSong">
-    <div class="song-detail" @click="clickToPlay(index)">  
+    <div class="song-detail" @click="playIndex(index)">  
       <!-- 需要判断当前所听音乐在对应的哪个歌单，解决每个歌单的相同index位置都是播放状态bug 用了一个比较蠢的方法（判断当前显示歌单和播放歌单是否是同一个id）-->
       <i class="icon-volume-medium left" v-show="playingSongListID == showingSongListID && currentIndex == index"></i>
       <p class="song-index left" v-show="playingSongListID != showingSongListID || currentIndex != index">{{ index+1 }}</p>
@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    clickToPlay (index) {
+    playIndex (index) {
       let obj = {};
       //this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
       obj.index = index;

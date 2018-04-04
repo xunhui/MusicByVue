@@ -7,14 +7,14 @@
 		</transition>
 		<transition name="slide">
 			<div class="song-list" v-if="ifShowPlayingList">
-				<div class="top-menu">
+				<div class="top-menu" v-if="nowPlayingListInfo.tracks.length">
 					<div class="list-playmode">
 						<i class="playmode-icon icon-music-random"></i>
 						<p class="playmode-title">随机播放</p>
 						<p class="list-count">(233)</p>
 					</div>
 				</div>
-				<div v-if="nowPlayingListInfo.tracks.length" class="each-list" v-for="(eachsong, index) in nowPlayingListInfo.tracks" :bind='eachsong.id'>
+				<div @click="playIndex(index)" v-if="nowPlayingListInfo.tracks.length" class="each-list" v-for="(eachsong, index) in nowPlayingListInfo.tracks" :bind='eachsong.id'>
 					<div class="each-song">
 						<i class="nowplaying-icon icon-volume-medium" v-if="currentIndex == index && playingSongListID == showingSongListID"></i>
 						<p class="song-name" :class="{playingStyle: currentIndex == index}">{{ eachsong.name }}</p>
@@ -54,11 +54,19 @@ export default {
     }
   },
   methods: {
-    hidePlayingList() {
+    hidePlayingList () {
       this.$store.commit("hidePlayingSongList");
     },
     getArtistsAlbumInfo (obj) {
       return common.artistsAlbumInfo(obj);
+    },
+    playIndex (index) {
+      let obj = {};
+      //this.list.artistsAlbum = this.getArtistsAndAlbum(this.list);
+      obj.index = index;
+      obj.sheetsDetailInfo = this.$store.getters.getPlayingSongListInfo;
+      console.log(obj);
+      this.$store.commit('playIndexMusic', obj);
     }
   }
 };

@@ -23,7 +23,9 @@ const audio = {
 		//播放列表显示状态
 		ifplayingSongListShow: false,
 		//当前播放歌单列表 点击某歌单的某首歌 将该歌单的信息置为当前播放列表
-		playingSongListInfo: {}
+		playingSongListInfo: {
+			tracks: []
+		}
 	},
 	getters: {
 		getAudioItSelf: state => state.audioItSelf,
