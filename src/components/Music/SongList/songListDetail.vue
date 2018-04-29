@@ -53,7 +53,7 @@
           <div class="play-songlist-header">
               <i class="icon-play-detail playall-icon"></i>
               <span class="playall-title">播放全部</span>
-              <span class="songlist-count">(共{{ sheetsDetailInfo.trackCount }}首)</span>
+              <span class="songlist-count">(共{{ sheetsDetailInfo.tracks.length }}首)</span>
               <div class="selectmore">
                 <i class="icon-menu selectmore-icon"></i>
                 <span class="selectmore-text">多选</span>

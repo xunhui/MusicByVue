@@ -13,6 +13,21 @@ let common = {
         allInfo.album = album;
         allInfo.artistsAndAlbum = allArtists + ' - ' + album;
         return allInfo;
+    },
+    //从传入的数组中随机取n个不重复的数据 返回新数组
+    getNFromArrRandom: function (arr, n) {
+        let newArr = [];
+        for (let i = 0;i < n;i++) {
+            let random = Math.floor(Math.random()*arr.length);
+            if (arr[random] != null) {
+                newArr.push(arr[random]);
+                arr[random] = null;
+            } else {
+                i--;
+            }
+            
+        }
+        return newArr;
     }
 }
 

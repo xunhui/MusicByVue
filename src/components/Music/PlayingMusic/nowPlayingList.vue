@@ -11,14 +11,14 @@
 					<div class="list-playmode">
 						<i class="playmode-icon icon-music-random"></i>
 						<p class="playmode-title">随机播放</p>
-						<p class="list-count">(233)</p>
+						<p class="list-count">({{ nowPlayingListInfo.tracks.length }})</p>
 					</div>
 				</div>
 				<div @click="playIndex(index)" v-if="nowPlayingListInfo.tracks.length" class="each-list" v-for="(eachsong, index) in nowPlayingListInfo.tracks" :bind='eachsong.id'>
 					<div class="each-song">
 						<i class="nowplaying-icon icon-volume-medium" v-if="currentIndex == index && playingSongListID == showingSongListID"></i>
 						<p class="song-name" :class="{playingStyle: currentIndex == index}">{{ eachsong.name }}</p>
-						<p class="gap" :class="{playingStyle: currentIndex == index}">-</p>
+						<span class="gap" :class="{playingStyle: currentIndex == index}">-</span>
 						<p class="song-singer" :class="{playingStyle: currentIndex == index}">{{ getArtistsAlbumInfo(eachsong).artists }}</p>
 					</div>
 				</div>	
@@ -142,10 +142,18 @@ export default {
       height: 50px;
       margin-left: 10px;
       border-bottom: $border_1px;
+      p {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
       .nowplaying-icon {
         color: $mainColor;
         margin-right: 5px;
         margin-top: 2px;
+      }
+      .song-name {
+        max-width: 60%;
       }
       .gap {
         margin-left: 5px;
@@ -153,6 +161,7 @@ export default {
         color: $subtext_color;
       }
       .song-singer {
+        max-width: 40%;
         color: $subtext_color;
         font-size: 14px;
         margin-top: 2px;

@@ -40,6 +40,7 @@ const audio = {
 		setAudioItSelf (state, audio) {
 			state.audioItSelf = audio;
 		},
+		//播放当前播放列表索引处的歌曲
 		playIndexMusic (state, obj) {
       		//改变当前播放音乐状态
 			state.playingState = true;
@@ -57,6 +58,34 @@ const audio = {
 			state.audioItSelf.play()
 			console.log(state.audioItSelf)
 		},
+		//播放下一首
+		playNextMusic (state) {
+			let nowTracks = state.playingSongListInfo.tracks;
+			if (state.playingSongIndex + 1 > nowTracks.length - 1) {
+				state.playingSongIndex = 0;
+			} else {
+				state.playingSongIndex++;
+			}
+			state.playingSongInfo = nowTracks[state.playingSongIndex];
+			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
+			state.audioItSelf.load();
+			state.audioItSelf.play()
+			console.log(state.audioItSelf)
+		},
+		//播放上一首
+		playPreMusic (state) {
+			let nowTracks = state.playingSongListInfo.tracks;
+			if (state.playingSongIndex - 1 < 0) {
+				state.playingSongIndex = nowTracks.length - 1;
+			} else {
+				state.playingSongIndex--;
+			}
+			state.playingSongInfo = nowTracks[state.playingSongIndex];
+			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
+			state.audioItSelf.load();
+			state.audioItSelf.play()
+			console.log(state.audioItSelf)
+		},
 		//点击按钮 toggle播放or暂停
 		playOrPause (state) {
 			if (state.playingState == false) {
@@ -67,6 +96,7 @@ const audio = {
 				state.audioItSelf.pause();
 			}
 		},
+
 		showPlayingSongList (state) {
 			state.ifplayingSongListShow = true;
 		},

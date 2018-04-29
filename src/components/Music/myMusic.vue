@@ -7,7 +7,7 @@
 		<topList iconInfo="icon-collect" titleText="我的收藏" titleCount="专辑/歌手/视频/专栏" :hasBorder="false"></topList>
     <clip-loader :loading="loading" :color="baseColor" :size="height" class="loading"></clip-loader>
 		<!-- 用v-for循环渲染组件可以让每个组件内部拥有自己的变量  歌单列表 -->
-		<songList v-if="!loading" :items="EachSheetsInfo" v-for="EachSheetsInfo in SheetsInfo" :key="EachSheetsInfo.id"></songList>
+		<songList v-if="!loading" :sheetsInfo="EachSheetsInfo" v-for="EachSheetsInfo in SheetsInfo" :key="EachSheetsInfo.id"></songList>
   </div>
 </template>
 
@@ -46,7 +46,6 @@ export default {
     this.$http.get('/user/playlist?uid=246442459').then( res => {
       this.$store.commit('setMusicSheetsInfo', res.data.playlist);
       this.loading = false;
-      console.log(res)
     })
   }
 };
