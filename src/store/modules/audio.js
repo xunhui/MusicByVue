@@ -1,10 +1,11 @@
+import common from "@/common/js/common.js"
 const audio = {
 	state: {
 		//audio标签本身,用来触发audio内置事件
 		audioItSelf: {},
 		//audio播放状态 播放or暂停
 		playingState: false,
-		//当前正在播放歌曲信息 给一个默认..免得影响观感
+		//当前正在播放歌曲信息 给一个默认..免得影响观感 （TODO:后续将显示本地存储的播放的最后一首歌曲）
 		playingSongInfo: {
 			"album": {
 				"blurPicUrl":"http://p1.music.126.net/lN7r5689EMOPy8G1unOIYw==/125344325567243.jpg",
@@ -14,7 +15,7 @@ const audio = {
 		    "artists": [{
 		    	name: '林俊杰'
 		    }],
-		    url: "http://music.163.com/song/media/outer/url?id=108138.mp3"
+		    "id": "108138"
 		},
 		//当前正在播放歌曲的在所属歌单中的index
 		playingSongIndex: -1,
@@ -23,9 +24,22 @@ const audio = {
 		//播放列表显示状态
 		ifplayingSongListShow: false,
 		//当前播放歌单列表 点击某歌单的某首歌 将该歌单的信息置为当前播放列表
+		//TODO:将显示本地存储的歌单列表
 		playingSongListInfo: {
-			tracks: []
-		}
+			tracks: [{
+				"album": {
+					"blurPicUrl":"http://p1.music.126.net/lN7r5689EMOPy8G1unOIYw==/125344325567243.jpg",
+					"name": "学不会"
+				},
+				"name": "那些你很冒险的梦",
+				"artists": [{
+					name: '林俊杰'
+				}],
+				"id": "108138"
+			}]
+		},
+		//播放模式 {1 : '列表循环', 2 : '单曲循环', 3 : '随机播放'} 默认列表循环1
+		playingMode: 1
 	},
 	getters: {
 		getAudioItSelf: state => state.audioItSelf,
@@ -34,7 +48,8 @@ const audio = {
 		getPlayingSongIndex: state => state.playingSongIndex,
 		getPlayingSongListID: state => state.playingSongListID,
 		getPlayingSongListShowState: state => state.ifplayingSongListShow,
-		getPlayingSongListInfo: state => state.playingSongListInfo
+		getPlayingSongListInfo: state => state.playingSongListInfo,
+		getPlayingMode: state => state.playingMode
 	},
 	mutations: {
 		setAudioItSelf (state, audio) {
@@ -60,29 +75,58 @@ const audio = {
 		},
 		//播放下一首
 		playNextMusic (state) {
+			//判断播放的类型(列表循环、单曲循环、随机播放等)
 			let nowTracks = state.playingSongListInfo.tracks;
-			if (state.playingSongIndex + 1 > nowTracks.length - 1) {
-				state.playingSongIndex = 0;
-			} else {
-				state.playingSongIndex++;
+			//列表循环
+			if (state.playingMode == 1) {
+				if (state.playingSongIndex + 1 > nowTracks.length - 1) {
+					state.playingSongIndex = 0;
+				} else {
+					state.playingSongIndex++;
+				}
+			}
+			//单曲循环
+			if (state.playingMode == 2) {
+				console.log('單曲')
+				state.playingSongIndex = state.playingSongIndex;
+			}
+			//随机播放
+			if (state.playingMode == 3) {
+				let newIndex = common.getDifRandomFromArr(nowTracks, state.playingSongIndex);
+				console.log(newIndex);
+				state.playingSongIndex = newIndex;
 			}
 			state.playingSongInfo = nowTracks[state.playingSongIndex];
 			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
 			state.audioItSelf.load();
+			state.playingState = true;
 			state.audioItSelf.play()
-			console.log(state.audioItSelf)
 		},
 		//播放上一首
 		playPreMusic (state) {
 			let nowTracks = state.playingSongListInfo.tracks;
-			if (state.playingSongIndex - 1 < 0) {
-				state.playingSongIndex = nowTracks.length - 1;
-			} else {
-				state.playingSongIndex--;
+			//列表循环
+			if (state.playingMode == 1) {
+				if (state.playingSongIndex - 1 < 0) {
+					state.playingSongIndex = nowTracks.length - 1;
+				} else {
+					state.playingSongIndex--;
+				}
+			}
+			//单曲循环
+			if (state.playingMode == 2) {
+				state.playingSongIndex = state.playingSongIndex;
+			}
+			//随机播放
+			if (state.playingMode == 3) {
+				let newIndex = common.getDifRandomFromArr(nowTracks, state.playingSongIndex);
+				console.log(newIndex);
+				state.playingSongIndex = newIndex;
 			}
 			state.playingSongInfo = nowTracks[state.playingSongIndex];
 			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
 			state.audioItSelf.load();
+			state.playingState = true;
 			state.audioItSelf.play()
 			console.log(state.audioItSelf)
 		},
@@ -96,7 +140,14 @@ const audio = {
 				state.audioItSelf.pause();
 			}
 		},
-
+		//改变播放模式
+		changePlayingMode (state) {
+			if (state.playingMode != 3) {
+				state.playingMode++;
+			} else {
+				state.playingMode = 1;
+			}
+		},
 		showPlayingSongList (state) {
 			state.ifplayingSongListShow = true;
 		},

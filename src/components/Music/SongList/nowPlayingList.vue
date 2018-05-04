@@ -8,9 +8,9 @@
 		<transition name="slide">
 			<div class="song-list" v-if="ifShowPlayingList">
 				<div class="top-menu" v-if="nowPlayingListInfo.tracks.length">
-					<div class="list-playmode">
-						<i class="playmode-icon icon-music-random"></i>
-						<p class="playmode-title">随机播放</p>
+					<div class="list-playmode" @click="changePlayingMode">
+						<i class="playmode-icon" :class="{ 'icon-music-shunxu': playingMode==1, 'icon-music-danqu1': playingMode==2, 'icon-music-random': playingMode==3 }"></i>
+						<p class="playmode-title">{{ playModeTitle }}</p>
 						<p class="list-count">({{ nowPlayingListInfo.tracks.length }})</p>
 					</div>
 				</div>
@@ -32,7 +32,9 @@
 import common from '@/common/js/common.js'
 export default {
   data() {
-    return {};
+    return {
+      
+    };
   },
   props: [],
   components: {},
@@ -51,11 +53,27 @@ export default {
     },
     currentIndex () {
       return this.$store.getters.getPlayingSongIndex;
+    },
+    playingMode () {
+      return this.$store.getters.getPlayingMode;
+    },
+    playModeTitle () {
+      switch (this.playingMode)
+      {
+        case 1: return '列表循环';
+        case 2: return '单曲循环';
+        case 3: return '随机播放'; 
+        default: return;
+      }
     }
   },
   methods: {
     hidePlayingList () {
       this.$store.commit("hidePlayingSongList");
+    },
+    changePlayingMode () {
+        console.log('123')
+        this.$store.commit('changePlayingMode');
     },
     getArtistsAlbumInfo (obj) {
       return common.artistsAlbumInfo(obj);
@@ -119,6 +137,7 @@ export default {
       display: flex;
       align-items: center;
       height: 50px;
+      width: 135px;
       &:active {
         background: $list_active;
       }
@@ -129,6 +148,10 @@ export default {
       }
       .playmode-title {
         margin: 0 5px;
+        font-size: 14px;
+      }
+      .list-count {
+        font-size: 14px;
       }
     }
   }

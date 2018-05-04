@@ -8,6 +8,7 @@
     <operation></operation>
     <bottom-bar></bottom-bar>
     <now-playingList></now-playingList>
+    <cd-detail></cd-detail>
   </div>
 </template>
 
@@ -17,7 +18,8 @@ import sideBar from "@/components/SideBar/sideBar"
 import bottomBar from "@/components/bottomBar"
 import songlistDetail from "@/components/Music/SongList/songListDetail"
 import operation from "./Components/Common/operation"
-import nowPlayingList from "@/components/Music/PlayingMusic/nowPlayingList"
+import nowPlayingList from "@/components/Music/SongList/nowPlayingList"
+import cdDetail from "@/components/Music/CD/CDDetail"
 import axios from 'axios'
 
 export default {
@@ -33,7 +35,8 @@ export default {
     bottomBar,
     songlistDetail,
     operation,
-    nowPlayingList
+    nowPlayingList,
+    cdDetail
   },
   methods: {
 

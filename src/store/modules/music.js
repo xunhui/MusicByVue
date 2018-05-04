@@ -8,7 +8,8 @@ const music = {
 		//设置该状态是为了点击歌单后直接显示歌单信息而不用等待访问接口的时间
 		coverDetailInfo: {},//歌单封面及收藏人信息
 		SheetsDetailInfo: {},//歌单详情页的信息
-		songArtistsAndAlbum: ''//每一首歌的歌手及专辑
+		songArtistsAndAlbum: '',//每一首歌的歌手及专辑
+		showCDDetail: false//CD详情页的显示隐藏
 	},
 	getters: {
 		//获取所有音乐信息
@@ -24,7 +25,9 @@ const music = {
 		//获取歌单详情音乐列表信息
 		getSheetsDetailInfo: state => state.SheetsDetailInfo,
 		//获取歌曲歌手、歌名、专辑
-		getSongArtistsAndAlbum: state => state.songArtistsAndAlbum
+		getSongArtistsAndAlbum: state => state.songArtistsAndAlbum,
+		//获取CD详情页显示状态
+		getCDDetailState: state => state.showCDDetail
 	},
 	mutations: {
 		setMusicAllInfo (state, all) {
@@ -51,19 +54,13 @@ const music = {
 		hideSheetsDetail (state) {
 			state.showSheetsDetail = false;
 		},
-		//设置歌曲信息
-		// setSongArtistsAndAlbum (state, obj) {
-		//     let allArtists = '', album = '';
-		//     let artLen = obj.artists.length;
-		//     for (let i = 0;i < artLen;i++) {
-		//       allArtists += obj.artists[i].name;
-		//       if (i+1 < artLen)
-		//         allArtists += '/'
-		//     }
-		//     album = obj.album.name;
-		//     console.log(artLen)
-		//     state.songArtistsAndAlbum = allArtists + ' - ' + album;
-  //   	}
+		//显示、隐藏CD详情页
+		showCDDetail (state) {
+			state.showCDDetail = true;
+		},
+		hideCDDetail (state) {
+			state.showCDDetail = false;
+		}
 	},
 	actions: {
 		//异步进行
@@ -85,9 +82,6 @@ const music = {
 		hideSheetsDetail ({commit}) {
 			commit("hideSheetsDetail")
 		}
-		// setEachSongInfo ({commit}, songInfo) {
-		// 	commit('setEachSongInfo', songInfo)
-		// }
  	}
 }
 

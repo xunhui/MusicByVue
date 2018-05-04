@@ -1,15 +1,11 @@
 <template>
-  <div class="bottomBar">
-  <my-audio></my-audio>
+  <div class="bottomBar" @click="showCDDetail">
+    <my-audio></my-audio>
     <img :src="playingSongInfo.album.blurPicUrl" class="songList-cover">
     <div class="nowplaying-song">
       <div class="song-info">
         <p class="song-name">{{ playingSongInfo.name }}</p>
         <p class="song-singer">{{ getArtistsAlbumInfo().artistsAndAlbum }}</p>
-      </div>
-      <div style="margin-right: 10px;">
-        <p @click.stop="preSong">上一首</p>
-        <p @click.stop="nextSong">下一首</p>
       </div>
       <div class="circle-diy" @click.stop="playOrPause">
         <i class="play-pause" :class="[playingSongState ? 'icon-pause' : 'icon-play']"></i>
@@ -21,7 +17,7 @@
 </template>
 
 <script>
-import myAudio from "./Music/PlayingMusic/audio"
+import myAudio from "./Music/Audio/audio"
 import common from '@/common/js/common.js'
 import axios from "axios"
 export default {
@@ -43,6 +39,9 @@ export default {
     }
   },
   methods: {
+    showCDDetail () {
+      this.$store.commit('showCDDetail');
+    },
     playOrPause () {
       this.$store.commit('playOrPause');
     },
@@ -51,14 +50,6 @@ export default {
     },
     getArtistsAlbumInfo () {
       return common.artistsAlbumInfo(this.playingSongInfo)
-    },
-    preSong () {
-      console.log('上');
-      this.$store.commit('playPreMusic');
-    },
-    nextSong () {
-      console.log('下');
-      this.$store.commit('playNextMusic');
     }
   },
   created () {
