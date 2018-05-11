@@ -1,7 +1,7 @@
 <!-- H5 audio播放组件 -->
 <template>
   <div class="audio">
-	<audio ref="audio" @pause="musicPause" @play="musicPlay" @ended="continuePlay"></audio>
+	<audio ref="audio" @pause="musicPause" @play="musicPlay" @ended="continuePlay" @durationchange="setDuration"></audio>
   </div>
 </template>
 
@@ -31,14 +31,16 @@ export default {
     continuePlay () {
       console.log('ended');
       this.$store.commit('playNextMusic');
+    },
+    setDuration () {
+      console.log(this.$refs.audio.duration)
+      this.$store.commit('setAudioDuration', this.$refs.audio.duration);
     }
   },
   mounted () {
-    
     //mounted阶段才可以获取到dom节点
     this.$store.commit("setAudioItSelf", this.$refs.audio);
     this.$refs.audio.src = "http://music.163.com/song/media/outer/url?id=" + this.playingMusicInfo.id + ".mp3";
-    console.log(this.$refs.audio)
   }
 }
 </script>

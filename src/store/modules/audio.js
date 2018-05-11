@@ -3,6 +3,8 @@ const audio = {
 	state: {
 		//audio标签本身,用来触发audio内置事件
 		audioItSelf: {},
+		//audio音频总时长
+		audioDuration: '4:05',
 		//audio播放状态 播放or暂停
 		playingState: false,
 		//当前正在播放歌曲信息 给一个默认..免得影响观感 （TODO:后续将显示本地存储的播放的最后一首歌曲）
@@ -43,6 +45,7 @@ const audio = {
 	},
 	getters: {
 		getAudioItSelf: state => state.audioItSelf,
+		getAudioDuration: state => state.audioDuration,
 		getPlayingState: state => state.playingState,
 		getPlayingSongInfo: state => state.playingSongInfo,
 		getPlayingSongIndex: state => state.playingSongIndex,
@@ -54,6 +57,9 @@ const audio = {
 	mutations: {
 		setAudioItSelf (state, audio) {
 			state.audioItSelf = audio;
+		},
+		setAudioDuration (state, duration) {
+			state.audioDuration = duration;
 		},
 		//播放当前播放列表索引处的歌曲
 		playIndexMusic (state, obj) {
@@ -71,30 +77,33 @@ const audio = {
 			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
 			state.audioItSelf.load();
 			state.audioItSelf.play()
-			console.log(state.audioItSelf)
 		},
 		//播放下一首
 		playNextMusic (state) {
 			//判断播放的类型(列表循环、单曲循环、随机播放等)
 			let nowTracks = state.playingSongListInfo.tracks;
-			//列表循环
-			if (state.playingMode == 1) {
-				if (state.playingSongIndex + 1 > nowTracks.length - 1) {
-					state.playingSongIndex = 0;
-				} else {
-					state.playingSongIndex++;
+			switch (state.playingMode)
+			{
+				//列表循环
+				case 1: {
+					if (state.playingSongIndex + 1 > nowTracks.length - 1) {
+						state.playingSongIndex = 0;
+					} else {
+						state.playingSongIndex++;
+					}
+					break;
 				}
-			}
-			//单曲循环
-			if (state.playingMode == 2) {
-				console.log('單曲')
-				state.playingSongIndex = state.playingSongIndex;
-			}
-			//随机播放
-			if (state.playingMode == 3) {
-				let newIndex = common.getDifRandomFromArr(nowTracks, state.playingSongIndex);
-				console.log(newIndex);
-				state.playingSongIndex = newIndex;
+				//单曲循环
+				case 2: 
+					state.playingSongIndex = state.playingSongIndex;
+					break;
+				//随机播放
+				case 3: {
+					let newIndex = common.getDifRandomFromArr(nowTracks, state.playingSongIndex);
+					console.log(newIndex);
+					state.playingSongIndex = newIndex;
+				}
+				
 			}
 			state.playingSongInfo = nowTracks[state.playingSongIndex];
 			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
@@ -105,23 +114,28 @@ const audio = {
 		//播放上一首
 		playPreMusic (state) {
 			let nowTracks = state.playingSongListInfo.tracks;
-			//列表循环
-			if (state.playingMode == 1) {
-				if (state.playingSongIndex - 1 < 0) {
-					state.playingSongIndex = nowTracks.length - 1;
-				} else {
-					state.playingSongIndex--;
+			switch (state.playingMode)
+			{
+				//列表循环
+				case 1: {
+					if (state.playingSongIndex - 1 < 0) {
+						state.playingSongIndex = nowTracks.length - 1;
+					} else {
+						state.playingSongIndex--;
+					}
+					break;
 				}
-			}
-			//单曲循环
-			if (state.playingMode == 2) {
-				state.playingSongIndex = state.playingSongIndex;
-			}
-			//随机播放
-			if (state.playingMode == 3) {
-				let newIndex = common.getDifRandomFromArr(nowTracks, state.playingSongIndex);
-				console.log(newIndex);
-				state.playingSongIndex = newIndex;
+				//单曲循环
+				case 2: 
+					state.playingSongIndex = state.playingSongIndex;
+					break;
+				//随机播放
+				case 3: {
+					let newIndex = common.getDifRandomFromArr(nowTracks, state.playingSongIndex);
+					console.log(newIndex);
+					state.playingSongIndex = newIndex;
+				}
+				
 			}
 			state.playingSongInfo = nowTracks[state.playingSongIndex];
 			state.audioItSelf.setAttribute('src', "http://music.163.com/song/media/outer/url?id=" + state.playingSongInfo.id + ".mp3")
@@ -139,6 +153,10 @@ const audio = {
 				state.playingState = false;
 				state.audioItSelf.pause();
 			}
+		},
+		play (state) {
+			state.playingState = true;
+			state.audioItSelf.play();
 		},
 		//改变播放模式
 		changePlayingMode (state) {

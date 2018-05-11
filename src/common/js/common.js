@@ -51,6 +51,18 @@ let common = {
             arr[random] = temp;
         }
         return arr;
+    },
+    //将音频总时长的秒数返回成xx分:xx秒的格式
+    getTimeFromDuration: function (duration) {
+        let minute = Math.floor(duration/60).toString();
+        let seconds = Math.floor(duration%60);
+        if (seconds < 10) {
+            seconds = '0' + seconds.toString();
+        } else {
+            seconds = seconds.toString();
+        }
+        return minute + ':' + seconds;
+        console.log(minute + ':' + seconds)
     }
 }
 
