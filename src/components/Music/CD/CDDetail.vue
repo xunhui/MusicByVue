@@ -1,6 +1,7 @@
 <template>
     <transition name="slide">
-        <div class="CD-detail" v-if="ifShowCDDetail">
+      <!-- 阻止默认事件 避免移动过快时导致触碰相邻元素而触发点击事件-- -->
+        <div class="CD-detail" v-show="ifShowCDDetail" @mousemove.prevent="Draging" @mouseup="stopDrag">
             <div class="top-bar">
                 <i class="back icon-back" @click.stop="back"></i>
                 <div class="music-info">
@@ -22,9 +23,9 @@
             <div class="CD-control">
                 <div class="progress-control">
                     <span class="now-progress-time">{{ currentFixedTime }}</span>
-                    <div class="whole-progress-bar" @click="setPlayingTime" ref="wholeProgress">
+                    <div class="whole-progress-bar" @click.self="setPlayingTime" ref="wholeProgress">
                       <div class="now-progress-bar" ref="nowrogress" :style="{width: currentOffset - initialOffset + 'px'}"></div>
-                      <span class="indicator" ref="indicator" :style="{left: currentOffset + 'px'}" @mousedown="beginDrag" @mouseup="stopDrag"></span>
+                      <span class="indicator" ref="indicator" :style="{left: currentOffset + 'px'}" @mousedown.stop="beginDrag"></span>
                     </div>
                     <span class="whole-progress-time">{{ wholeFixedDuration }}</span>
                 </div>
@@ -50,33 +51,35 @@ export default {
       currentTime: 0,
       currentOffset: -6,
       initialOffset: -6,
-      playTimer: -1
+      playTimer: -1,
+      canDrag: false,
+      initialOffsetX: -6
     };
   },
   computed: {
-    playingState () {
+    playingState() {
       return this.$store.getters.getPlayingState;
     },
-    ifShowCDDetail () {
+    ifShowCDDetail() {
       return this.$store.getters.getCDDetailState;
     },
-    playingState () {
+    playingState() {
       return this.$store.getters.getPlayingState;
     },
-    playingSongInfo () {
+    playingSongInfo() {
       return this.$store.getters.getPlayingSongInfo;
     },
-    playingMode () {
+    playingMode() {
       return this.$store.getters.getPlayingMode;
     },
-    getArtistsAlbumInfo () {
+    getArtistsAlbumInfo() {
       return common.artistsAlbumInfo(this.playingSongInfo);
     },
-    currentFixedTime () {
-      return common.getTimeFromDuration(this.currentTime)
+    currentFixedTime() {
+      return common.getFormatTimeFromDuration(this.currentTime);
     },
     wholeFixedDuration() {
-      return common.getTimeFromDuration(this.$store.getters.getAudioDuration);
+      return common.getFormatTimeFromDuration(this.$store.getters.getAudioDuration);
     }
   },
   methods: {
@@ -84,60 +87,71 @@ export default {
       this.$store.commit("hideCDDetail");
     },
     //进度条点击事件
-    setPlayingTime (event) {
+    setPlayingTime(event) {
       event = event || window.event;
-      let offsetX = event.offsetX, wholeWidth = this.$refs.wholeProgress.offsetWidth;
+      console.log(event)
+      let offsetX = event.offsetX,
+        wholeWidth = this.$refs.wholeProgress.offsetWidth;
       let wholeDuration = this.$store.getters.getAudioDuration;
-      let jumpTime = offsetX/wholeWidth*wholeDuration;
-      console.log('offsetX:',offsetX, 'jumpTime:', jumpTime);
+      let jumpTime = offsetX / wholeWidth * wholeDuration;
+      console.log("offsetX:", offsetX, "jumpTime:", jumpTime);
       //修改当前播放时间，音频信息，播放进度条和指示器位置
       this.currentTime = jumpTime;
       this.$store.getters.getAudioItSelf.currentTime = jumpTime;
       this.currentOffset = offsetX + this.initialOffset;
-      console.log(this.currentOffset)
+      console.log(this.currentOffset);
     },
     //鼠标拖拽事件
-    beginDrag (event) {
-      event = event || window.event;
+    beginDrag() {
+      this.canDrag = true;
       //先获取点击时
-      let initialOffsetX = event.offsetX;
-      console.log('begin', event.offsetX, event.clientX)
-      if (event) {
-        let fixedValue = 50, maxOffset = that.$refs.wholeProgress.offsetWidth - 6;
+      this.initialOffsetX = event.offsetX;
+      console.log("begin初始偏移量", this.initialOffsetX);
+    },
+    Draging(event) {
+      if (this.canDrag == true) {
+        event = event || window.event;
+        
+        let fixedValue = 50, maxOffset = this.$refs.wholeProgress.offsetWidth - 6;
         //拖动过程中的偏移量即起始点和指示器左侧的距离
-        this.$refs.indicator.onmousemove = (e) => {
-          e = e || window.event;
-          this.currentOffset = e.clientX - initialOffsetX - fixedValue;
-          if (this.currentOffset < -6) {
-            this.currentOffset = -6;
-          }
-          if (this.currentOffset > maxOffset) {
-            this.currentOffset = maxOffset;
-          }
-          console.log('ing', e.offsetX, e.clientX, this.currentOffset)
+        this.currentOffset = event.clientX - this.initialOffsetX - fixedValue;
+        //控制拖动范围
+        if (this.currentOffset < -6) {
+          this.currentOffset = -6;
         }
+        if (this.currentOffset > maxOffset) {
+          this.currentOffset = maxOffset;
+        }
+        let percent = (this.currentOffset + 6)/this.$refs.wholeProgress.offsetWidth;
+        this.currentTime = percent*this.$store.getters.getAudioDuration;
+        console.log("ing", this.currentOffset);
       }
     },
-    stopDrag (event){
-      console.log('stop', event.offsetX, event.clientX)
+    stopDrag(event) {
+      if (this.canDrag == true) {
+        this.canDrag = false;
+        //结束拖拽后将音频播放时间置于此
+        this.$store.getters.getAudioItSelf.currentTime = this.currentTime;
+        console.log("stop", event.offsetX, event.clientX);
+      }
+
     },
     //音频播放事件
-    audioPlay (event) {
+    audioPlay(event) {
       let that = this;
-      if (event == 'play')  {
+      if (event == "play") {
         clearInterval(this.playTimer);
-        this.playTimer = setInterval( function () {
+        this.playTimer = setInterval(function() {
           //----此处注意this的指向
           let currentTime = that.$store.getters.getAudioItSelf.currentTime;
           let wholeDuration = that.$store.getters.getAudioDuration;
-          let offsetX = currentTime/wholeDuration*that.$refs.wholeProgress.offsetWidth;
+          let offsetX =
+            currentTime / wholeDuration * that.$refs.wholeProgress.offsetWidth;
           //修改当前播放时间，音频信息，播放进度条和指示器位置
           that.currentTime = currentTime;
           that.currentOffset = offsetX + that.initialOffset;
-          console.log(currentTime)
-        }, 1100)
-      } else if (event == 'pause') {
-        console.log('clear')
+        }, 1100);
+      } else if (event == "pause") {
         clearInterval(this.playTimer);
       }
     },
@@ -166,21 +180,18 @@ export default {
     }
   },
   watch: {
-    playingState: function (newState, oldState) {
+    playingState: function(newState, oldState) {
       //play
       if (newState == true) {
-        this.audioPlay('play');
-      } 
-      //pause
-      else {
-        console.log('该停了')
-        this.audioPlay('pause');
+        this.audioPlay("play");
+      } else {
+        //pause
+        console.log("该停了");
+        this.audioPlay("pause");
       }
     }
   },
-  created() {
-    
-  }
+  created() {}
 };
 </script>
 
@@ -303,47 +314,46 @@ export default {
   }
   .CD-control {
     .progress-control {
-        padding: 20px 15px;
-        display: flex;
-        align-items: center;
-        .now-progress-time {
-            width: 35px;
-            color: $sub_iconcolor;
-            font-size: 10px;
-            text-align: left;
+      padding: 20px 15px;
+      display: flex;
+      align-items: center;
+      .now-progress-time {
+        width: 35px;
+        color: $sub_iconcolor;
+        font-size: 10px;
+        text-align: left;
+      }
+      .whole-progress-time {
+        width: 35px;
+        color: $sub_iconcolor;
+        font-size: 10px;
+        text-align: right;
+      }
+      .whole-progress-bar {
+        flex: 1;
+        position: relative;
+        background: $sub_iconcolor;
+        height: 3px;
+        border-radius: 8px;
+        cursor: pointer;
+        .now-progress-bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: $mainColor;
+          height: 3px;
+          border-radius: 8px;
         }
-        .whole-progress-time {
-            width: 35px;
-            color: $sub_iconcolor;
-            font-size: 10px;
-            text-align: right;
+        .indicator {
+          position: absolute;
+          height: 12px;
+          width: 12px;
+          border-radius: 50%;
+          background: #fff;
+          top: -4.5px;
+          cursor: pointer;
         }
-        .whole-progress-bar {
-            flex: 1;
-            position: relative;
-            background: $sub_iconcolor;
-            height: 3px;
-            border-radius: 8px;
-            cursor: pointer;
-            .now-progress-bar {
-                position: absolute;
-                top: 0;
-                left: 0;
-                background: $mainColor;
-                height: 3px;
-                border-radius: 8px;
-            }
-            .indicator {
-              position: absolute;
-              height: 12px;
-              width: 12px;
-              border-radius: 50%;
-              background: #fff;
-              top: -4.5px;
-              cursor: pointer;
-            }
-        }
-        
+      }
     }
     .operation-option {
       display: flex;

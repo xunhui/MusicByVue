@@ -70,6 +70,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 15;
+  // cursor: pointer;
   .songList-cover {
     width: 40px;
     height: 40px;
