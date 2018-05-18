@@ -4,7 +4,7 @@ const audio = {
 		//audio标签本身,用来触发audio内置事件
 		audioItSelf: {},
 		//audio音频总时长
-		audioDuration: '4:05',
+		audioDuration: 245,
 		//audio播放状态 播放or暂停
 		playingState: false,
 		//当前正在播放歌曲信息 给一个默认..免得影响观感 （TODO:后续将显示本地存储的播放的最后一首歌曲）

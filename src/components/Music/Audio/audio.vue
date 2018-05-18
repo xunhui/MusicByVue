@@ -40,6 +40,7 @@ export default {
   mounted () {
     //mounted阶段才可以获取到dom节点
     this.$store.commit("setAudioItSelf", this.$refs.audio);
+    console.log(this.$refs.audio.volume);
     this.$refs.audio.src = "http://music.163.com/song/media/outer/url?id=" + this.playingMusicInfo.id + ".mp3";
   }
 }
